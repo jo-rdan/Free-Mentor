@@ -1,0 +1,151 @@
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    background: url('../assets/MW-GY798_LAUGH_ZH_20181119215830.jpg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.container{
+    width: 100%;
+    height: auto;
+}
+.info-section{
+    background: white;
+    border-radius: 10px;
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    transform: translateY(40%);
+    padding: 9px;
+}
+.info-section h1{
+    text-align: center;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.form{
+    margin: 30px 50px;
+    height: auto;
+}
+form input{
+    padding: 16px;
+    margin: 9px;
+    border: .5px solid rgba(216, 204, 204, 0.637);
+    border-radius: 4px;
+    width: 90%;
+    font-size: 15px;
+    font-weight: lighter;
+}
+form select{
+    width: 93.5%;
+    padding: 10px;
+    margin: 3px;
+    border: .5px solid rgba(216, 204, 204, 0.637);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: normal;
+}
+.info-section button{
+    width: 96%;
+    margin: 20px 8px;
+    padding: 15px 20px;
+    background-color: #6367e2;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+button:hover{
+    background: #6f73ec;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+p{
+    text-align: center;
+}
+p a {
+    color: black;
+    font-weight: bolder;
+}
+/* Media Queries */
+@media(min-width:2560px){
+    .info-section button{
+        width: 93%;
+    }
+    .info-section{
+    transform: translateY(50%);
+    }
+}
+@media (max-width:1025px){
+    .info-section{
+        width: 85%;
+        margin: 0 auto;
+        font-size: 15px;
+        transform: translateY(50%);
+    }
+}
+@media (max-width:770px){
+    @media(max-height:1025px){
+        .info-section{
+            width: 85%;
+            margin: 0 auto;
+            font-size: 15px;
+            transform: translateY(80%);
+        }
+        .info-section button{
+            width: 94%;
+        }
+        .form{
+            margin: 0;
+        }
+        form input,select{
+            padding: 10px;
+            margin: 6px;
+        }
+        form select{
+            padding: 10px;
+            margin: 6px;
+        }
+        .info-section button{
+            padding: 10px;
+            margin: 6px; 
+        }
+        p{
+            text-align: center;
+        }
+    }
+}
+    @media(max-width:430px){
+        .info-section{
+            width: 85%;
+            margin: 50px auto;
+            height: 280px;
+            transform: translateY(45%);
+        }
+        .form input{
+            padding: 9px;
+            margin: 4px;
+        }
+        .form select{
+            padding: 9px;
+            margin: 4px;
+        }
+        .info-section button{
+            width: 97%;
+            margin: 10px 3px;
+        }
+    }
+    @media(max-width:321px){
+        .info-section{
+            width: 85%;
+            margin: 50px auto;
+            height: 280px;
+            transform: translateY(25%);
+        }
+    }
+
+/* Media Queries */
