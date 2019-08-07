@@ -1,0 +1,300 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+/* Nav bar starts */
+
+.nav-bar{
+  display: flex;
+  position: sticky;
+  top: 0;
+  flex: 1;
+  align-items: center;
+  width: 100%;
+  background: white;
+  box-shadow: 2px 1px 6px gray;
+  opacity: .98;
+}
+.logo{
+  margin: 0 20px; 
+}
+.links{
+  margin: 0 20px 0 auto;
+}
+.links ul li{
+  display: inline-block;
+  padding: 10px 20px;
+}
+.links li a{
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+}
+.links li a:hover{
+  color: #6367e2;
+  border-radius: 5px;
+}
+.menu{
+  display: none;
+}
+.side-menu{
+  display: none;
+  position: sticky;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background: rgb(251, 251, 247);
+  opacity: .96;
+  transition: margin-top .6s; 
+}
+.side-menu ul{
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+.side-menu ul li a{
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+}
+.side-menu ul li{
+  padding: 30px;
+  margin: 0 20px;
+  border-bottom: 1px solid black;
+}
+.side-menu ul #close{
+  margin: 0 20px 0 80%;
+  padding: 7px;
+  font-size: 30px;
+  border: none;
+}
+
+/* Nav bar ends */
+
+/* Container */
+.container > div{
+  margin: 40px 30px;
+}
+.header{
+  background-image: url('../assets/44c9d8f6d7a572fedc8575dd3f55a42a.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  height: 500px;
+}
+.header .title{
+  color: white;
+  font-size: 35px;
+  letter-spacing: 4px;
+  font-weight: lighter;
+  text-align: center;
+  transform: translateY(430%);
+}
+.header .slogan{
+  color: white;
+  font-size: 20px;
+  letter-spacing: 4px;
+  font-weight: lighter;
+  font-style: oblique;
+  text-align: center;
+  transform: translateY(600%);
+}
+.header a button{
+  padding: 10px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  font-size: 14px;
+  transform: translateY(650%);
+  margin-left: 45%;
+}
+.header a button:hover{
+  cursor: pointer;
+}
+.mentors > div{
+  background: rgba(231, 231, 231, 0.418);
+  padding: 20px;
+}
+.mentors h2{
+  text-align: center;
+}
+.mentors h3{
+  font-size: 25px;
+}
+.it-mentors{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-gap: 20px;
+  margin: 20px 0;
+}
+.mentors .it-mentors img{
+  width: 200px;
+  height: auto;
+  margin-left: 25px;
+  border: 4px solid burlywood;  
+}
+.it-mentors .it{
+  background: white;
+  padding: 20px;
+  box-shadow: 1px 1px 5px gray;
+  border-radius: 6px;
+}
+.it-mentors .it p{
+  margin-left: 6px;
+}
+.it-mentors .it a button{
+  margin-left: 60px;
+  padding: 6px;
+  border: 1px solid #6367e2;
+  border-radius: 5px;
+  color: black;
+  background: #6367e278;
+
+}
+.it-mentors .it a button:hover{
+  cursor: pointer;
+  background: #6367e2;
+  color: white;
+  transition: all .4s ease-in-out;
+}
+
+/* Container ends */
+
+/* Footer start */
+
+footer{
+  background: white;
+  padding: 20px;
+  height: 100%;
+  box-shadow: 1px 1px 7px gray;
+  text-align: center;
+  font-size: 17px;
+}
+
+/* Footer ends */
+
+/* Media Queries */
+
+@media(min-width: 2560px){
+  .logo img{
+    width: 130%;
+    margin-left: 50px;
+  }
+  .links ul{
+    margin-right: 50px; 
+  }
+  .links ul li{
+    padding: 30px;
+    font-size: 20px;
+  }
+  .header .slogan{
+    font-size: 20px;
+    letter-spacing: 4px;
+    transform: translateY(650%);
+  }
+  .header a button{
+    margin-left: 48%;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .mentors .it{
+    height: 2000px;
+  }
+  .mentors h2,h3{
+    font-size: 50px;
+  }
+  .it-mentors .it{
+    width: 360px;
+    height: 536px;
+    margin: 0 auto;
+  }
+  .it-mentors .it img{
+    width: 100%;
+    margin: 0;
+  }
+  .it-mentors .it p{
+    font-size: 19px;
+  }
+  .it-mentors .it a button{
+    margin-left: 20%;
+    font-size: 22px;
+  }
+}
+@media (max-width:1024px){
+  .mentors h2,h3{
+    font-size: 30px;
+  }
+  .it-mentors{
+    grid-template-columns: repeat(3,2fr); 
+  }
+}
+@media (max-width: 770px){
+  .it-mentors{
+    grid-template-columns: repeat(2,1fr); 
+  }
+  .it-mentors .it img{
+    width: 100%;
+    margin: 0;
+  }
+}
+@media (max-width:430px){
+  .menu{
+    display: block;
+  }
+  .links ul{
+    display: none;
+  }
+  .header .title{
+    font-size: 25px;
+  }
+  .header .slogan{
+    font-size: 18px;
+  }
+  .header a button{
+    margin-left: 38%; 
+  }
+  .mentors h2{
+    font-size: 27px;
+    padding-bottom: 19px;
+  }
+  .mentors h3{
+    font-size: 22px;
+  }
+  .it-mentors{
+    grid-template-columns: repeat(1,2fr);
+  }
+}
+@media (max-width: 378px){
+  .header .title{
+    font-size: 23px;
+    margin-bottom: 20px;
+  }
+  .header a button{
+    margin: 50px 20px 0 35%;
+  }
+  .it-mentors .it a button{
+    margin-left: 55px;
+  }
+}
+@media (max-width: 320px){
+  .header .title{
+    font-size: 20px;
+    letter-spacing: 2px;
+    transform: translateY(780%);
+  }
+  .header .slogan{
+    font-size: 18px;
+    letter-spacing: 2px;
+    transform: translateY(850%);
+  }
+  .header a button{
+    margin-left: 30%;
+  }
+  .it-mentors .it a button{
+    font-size: 12px;
+    margin-left: 20%;
+  }
+}
+
+/* Media Queries */
