@@ -69,6 +69,13 @@ body{
   font-size: 30px;
   border: none;
 }
+.side-menu ul #close:hover{
+  cursor: pointer;
+}
+.side-menu ul li:hover{
+  cursor: pointer;
+  background: rgb(231, 231, 224);
+}
 
 /* Nav bar ends */
 
@@ -76,7 +83,7 @@ body{
 
 .container{
   width: 40%;
-  margin: 50px auto;
+  margin: 30px auto;
   box-shadow: 1px 2px 5px lightgrey;
   border-radius:10px;
 }
@@ -128,6 +135,75 @@ body{
 
 /* Container styles */
 
+/* popup */
+
+/* Report section */
+.pop-up{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  width: 100%;
+  height: 693px;
+  background: rgb(17, 17, 17,0.5);
+  position: absolute;
+  top: 0;
+}
+.req-form{
+  display: block;
+  position: absolute;
+  top: 150px;
+  right: 289px;
+  left: 300px;
+  width: 500px;
+  height: 300px;
+  margin: 50px auto;
+  background: #ffffff; 
+  border-radius: 10px;
+  box-shadow: 1px 2px 9px rgb(17, 17, 17,0.5);
+}
+.req-form form{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 400px;  
+    margin: 30px auto 0 60px;
+}
+.req-form form input, textarea{
+    width: 90%;
+    padding: 10px;
+    background: #fff;
+    border: solid;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+ 
+.req-form form input[type="submit"]{
+      width: 384px;
+    background: #6367e2;
+    font-weight: bold;
+    color: white;
+    border: none;
+    padding: 13px 10px;
+    font-size: 17px;
+}
+.req-form form input[type="button"]:hover{
+  cursor: pointer;
+}
+.req-form .close{
+    color: black;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    left: 470px;
+    width: 0;
+    font-size: 27px;
+}
+.req-form .close:hover{
+  cursor: pointer;
+}
+/* popup */
+
 /* Footer styles */
 
 footer{
@@ -171,13 +247,19 @@ footer{
   .container{
     width: 60%;
   }
+  .req-form{
+    left: 275px;
+  }
 }
 @media(max-width: 768px){
   .container{
     width: 80%;
   }
+  .req-form{
+    left: 130px;
+  }
 }
-@media(max-width:430px){
+@media(max-width:500px){
   .menu{
     display: block;
   }
@@ -203,10 +285,41 @@ footer{
     width: 50%;
     margin-left: 110px;
   }
+  .pop-up{
+    height: 866px;
+  }
+  .req-form{
+    left: 10px;
+    width: 400px;    
+  }
+  .req-form form input[type="text"], textarea{
+    width: 89%;
+  }
+  .req-form form input[type="submit"]{
+    width: 96%;    
+  }
+  .req-form form{ 
+    width: 90%;
+    margin: 40px auto 0 28px;
+}
+  .req-form .close{
+    left: 10px;
+  }
 }
 @media(max-width: 375px){
   .actions{
     margin-left: 95px;
+  }
+  .pop-up{
+    height: 906px;
+  }
+  .req-form form{
+    width: 85%;
+  }
+  .req-form{
+    top: 200px;
+    width: 335px;
+    margin: 40px auto 0 5px;
   }
 }
 @media(max-width: 320px){
@@ -218,6 +331,16 @@ footer{
   }
   .actions{
     margin-left: 65px;
+  }
+  .pop-up{
+    height: 946px;
+  }
+  .req-form form{
+    width: 80%;
+  }
+  .req-form{
+    top: 200px;
+    width: 300px;
   }
 }
 /* Media Queries */

@@ -36,13 +36,24 @@
       </div>
     </div>
     <div class="more-details">
+      <p><b>Email address: </b>markeeant@gmail.com</p>
       <p><b>Address: </b> Kigali, Rwanda</p>
       <p><b>Biography: </b>  Lorem ipsum dolor sit amet consectetur. Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
       <p><b>Occupation: </b>  Software Developer</p>
       <p><b>Expertise: </b>  Software Engineering</p>
     </div>
     <div class="actions">
-      <button class="ask-req">Ask for mentoring</button>
+      <button class="ask-req" onclick="openModal()">Ask for mentoring</button>
+    </div>
+  </div>
+  <div class="pop-up">
+    <div class="req-form">
+      <div class="close" onclick="closeModal()">&times;</div>
+      <form action="">
+        <input type="text" placeholder="Mentor email">
+        <textarea name="" id="" cols="30" rows="5">Ask for mentorship</textarea>
+        <input type="submit" value="Send Request">
+      </form>
     </div>
   </div>
   <footer>Copyright &copy; 2019 Mentors</footer>
