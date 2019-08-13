@@ -81,7 +81,7 @@ footer{
 
 @media(max-width: 1024px){
   table td[colspan="2"]{
-    margin-right: 60px;
+    margin-right: 60px
   }
 }
 @media(max-width: 768px){
