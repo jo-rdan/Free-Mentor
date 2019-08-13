@@ -1,0 +1,107 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+nav{
+  margin: 10px 20px;
+}
+.requests h1{
+  text-align: center;
+  margin-top: 30px;
+}
+.requests .underline{
+  background: #6367e2;
+  width: 80px;
+  height: 5px;
+  margin: 9px auto;
+  border-radius: 9px;
+}
+.req-table table{
+  width: 92%;
+  margin: 30px auto;
+  border: 2px solid lightgray;
+}
+table .selected{
+  background: #6367e242;
+}
+table td{
+  text-align: center;
+}
+table td[colspan = "2"]{
+  width: 140px;
+}
+table td[colspan="2"]{
+  display: flex;
+}
+table td[colspan="2"] > div button{
+  margin: 10px;
+  background: none;
+  border: none;
+}
+table td[colspan="2"] .accept button{
+  background: green;
+  padding: 10px;
+  margin: 10px 10px 10px 60px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bolder;
+  font-size: 11px;
+}
+table td[colspan="2"] .accept button:hover{
+  background: rgba(0, 128, 0, 0.815);
+  cursor: pointer;
+  transition: all .35s ease-out;
+}
+table td[colspan="2"] .decline button{
+  background: rgb(190, 7, 7);
+  color: white;
+  padding: 10px;
+  margin: 10px 10px;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 11px;
+}
+table td[colspan="2"] .decline button:hover{
+  cursor: pointer;
+  background: rgb(230, 12, 12);
+  transition: all .35s ease-out;
+}
+footer{
+  width: 100%;
+  text-align: center;
+  margin: 30px 0;
+}
+/* Media Queries */
+@media(min-width: 2560px){
+  nav{
+    margin: 50px 110gitpx;
+  }
+}
+
+@media(max-width: 1024px){
+  table td[colspan="2"]{
+    margin-right: 60px;
+  }
+}
+@media(max-width: 768px){
+  .req-table{
+    overflow-x: auto;
+  }
+  .req-table table{
+    margin: 30px 10px;
+    width: 100%;
+  }
+  table td[colspan="2"]{
+    margin-right: 80px;
+  }
+}
+@media(max-width: 500px){
+  nav{
+    position: sticky;
+    top: 0;
+    background: white;
+  }
+}
+
+/* Media Queries */
