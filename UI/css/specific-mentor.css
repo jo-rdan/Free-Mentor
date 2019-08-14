@@ -132,13 +132,15 @@ body{
   background: #6367e2cc;
   transition: all .3s ease-in-out;
 }
-
+  .basic-details img:hover{
+  cursor: pointer;  
+}
 /* Container styles */
 
 /* popup */
 
 /* Report section */
-.pop-up{
+.pop-up, .popup{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,11 +154,12 @@ body{
 .req-form{
   display: block;
   position: absolute;
-  top: 150px;
+  top: 100px;
+  position: fixed;
   right: 289px;
   left: 300px;
   width: 500px;
-  height: 300px;
+  height: 360px;
   margin: 50px auto;
   background: #ffffff; 
   border-radius: 10px;
@@ -179,13 +182,17 @@ body{
 }
  
 .req-form form input[type="submit"]{
-      width: 384px;
+    width: 384px;
     background: #6367e2;
     font-weight: bold;
     color: white;
     border: none;
     padding: 13px 10px;
     font-size: 17px;
+}
+.req-form form input[type="range"]{
+  width: 50%;
+  margin: 0 auto;
 }
 .req-form form input[type="button"]:hover{
   cursor: pointer;
@@ -214,6 +221,7 @@ footer{
   text-align: center;
   font-size: 17px;
 }
+
 
 /* Footer styles */
 
@@ -281,6 +289,9 @@ footer{
   .mentor-details h3, .mentor-details p{
     text-align: center;
   }
+  .basic-details img{
+    margin-left: 35px;
+  }
   .actions{
     width: 50%;
     margin-left: 110px;
@@ -309,6 +320,9 @@ footer{
 @media(max-width: 375px){
   .actions{
     margin-left: 95px;
+  }
+    .basic-details img{
+    margin-left: 10px;
   }
   .pop-up{
     height: 906px;
