@@ -75,7 +75,7 @@ footer{
 /* Media Queries */
 @media(min-width: 2560px){
   nav{
-    margin: 50px 110gitpx;
+    margin: 50px 110px;
   }
 }
 
@@ -105,3 +105,58 @@ footer{
 }
 
 /* Media Queries */
+
+/* Admin page styles */
+
+
+.header-table h1{
+  text-align: center;
+  margin-top: 30px;
+}
+.header-table .underline{
+  background: #6367e2;
+  width: 80px;
+  height: 5px;
+  margin: 9px auto;
+  border-radius: 9px;
+}
+.admin-table table{
+  width: 92%;
+  margin: 30px auto;
+  border: 2px solid lightgray;
+}
+table td .action button{
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 5px 10px;
+  background: green;
+  color: white;
+  font-weight: normal;
+}
+table td .action button:hover{
+  cursor: pointer;
+  background: rgba(0, 128, 0, 0.815);
+}
+
+
+/* Media Queries */
+
+@media(max-width: 768px){
+  .admin-nav{
+    margin: 30px;
+  }
+  .admin-table table{
+    width: 100%;
+    margin-left: 30px 0;
+  }
+}
+@media(max-width: 500px){
+  .admin-table{
+    overflow-x: auto;
+  }
+}
+
+/* Media Queries */
+/* Admin page styles */
