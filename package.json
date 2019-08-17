@@ -1,0 +1,28 @@
+{
+  "name": "free-mentor",
+  "version": "1.0.0",
+  "description": "Free Mentor is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jo-rdan/Free-Mentor.git"
+  },
+  "keywords": [
+    "mentor"
+  ],
+  "author": "Jordan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jo-rdan/Free-Mentor/issues"
+  },
+  "homepage": "https://github.com/jo-rdan/Free-Mentor#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
