@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jo-rdan/Free-Mentor.svg?branch=develop)](https://travis-ci.org/jo-rdan/Free-Mentor)
+[![Coverage Status](https://coveralls.io/repos/github/jo-rdan/Free-Mentor/badge.svg?branch=develop)](https://coveralls.io/github/jo-rdan/Free-Mentor?branch=develop)
 # Free-Mentor
 Free Mentor is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions
 
