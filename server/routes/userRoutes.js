@@ -4,6 +4,7 @@ import userControl from '../control/user_control';
 
 const router = express.Router();
 
-router.post('/signup',validate,userControl.signupUser);
+router.post('/signup',validate.validation,userControl.signupUser);
+router.post('/signin', validate.signInValidation,userControl.signinUser);
 
 export default router;
