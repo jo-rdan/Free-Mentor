@@ -15,15 +15,14 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
       expertise: 'Software Enfineering'
     })
       .end((err, res) => {
-        res.should.have.status(201);
-        res.body.should.be.an('object');
+        res.should.has.status(201);
         done();
       });
   });
@@ -32,7 +31,7 @@ describe('Authentication tests', () => {
       firstName: 'Jorda1n',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -48,7 +47,7 @@ describe('Authentication tests', () => {
       firstName: '',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -64,7 +63,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: '',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -80,7 +79,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manz3',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -96,7 +95,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordangmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -112,7 +111,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: '',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -144,7 +143,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'dan',
+      password: 'joe',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -160,7 +159,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: '',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -176,7 +175,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya5',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -192,7 +191,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: '12312213 32323',
       occupation: 'Software developer',
@@ -208,7 +207,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: '  ',
       occupation: 'Software developer',
@@ -224,7 +223,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: '',
@@ -240,7 +239,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: '123',
@@ -256,7 +255,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -272,7 +271,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordan@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -288,7 +287,7 @@ describe('Authentication tests', () => {
       firstName: 'Jordan',
       lastName: 'Manzi',
       email: 'jordankayinamura@gmail.com',
-      password: 'danger',
+      password: 'joerwanda123',
       address: 'kinyinya',
       bio: 'Am a beginner who wants to be more',
       occupation: 'Software developer',
@@ -313,6 +312,76 @@ describe('Authentication tests', () => {
     })
       .end((err, res) => {
         res.should.has.status(400);
+        done();
+      });
+  });
+  it('should be able to sign in', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura@gmail.com',
+      password: 'joerwanda123'
+    })
+      .end((err, res) => {
+        res.should.has.status(200);
+        done();
+      });
+  });
+  it('should not be able to sign in when email is empty', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: '',
+      password: 'danger'
+    })
+      .end((err, res) => {
+        res.should.has.status(400);
+        done();
+      });
+  });
+  it('should not be able to sign in when email is invalid', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura',
+      password: 'danger'
+    })
+      .end((err, res) => {
+        res.should.has.status(400);
+        done();
+      });
+  });
+  it('should not be able to sign in when password is empty', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura@gmail.com',
+      password: ''
+    })
+      .end((err, res) => {
+        res.should.has.status(400);
+        done();
+      });
+  });
+  it('should not be able to sign in when password is less than 5 characters', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura@gmail.com',
+      password: 'an'
+    })
+      .end((err, res) => {
+        res.should.has.status(400);
+        done();
+      });
+  });
+  it('should not be able to sign in when email is incorrect', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'joeyrwannda@gmail.com',
+      password: 'joerwanda123'
+    })
+      .end((err, res) => {
+        res.should.has.status(401);
+        done();
+      });
+  });
+  it('should not be able to sign in when passsword is incorrect', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura@gmail.com',
+      password: 'joerwanda'
+    })
+      .end((err, res) => {
+        res.should.has.status(401);
         done();
       });
   });
