@@ -325,6 +325,16 @@ describe('Authentication tests', () => {
         done();
       });
   });
+  it('Mentor should be able to sign in', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'johndoe@gmail.com',
+      password: 'joerwanda123'
+    })
+      .end((err, res) => {
+        res.should.has.status(200);
+        done();
+      });
+  });
   it('should not be able to sign in when email is empty', (done) => {
     chai.request(app).post('/api/v1/auth/signin').send({
       email: '',

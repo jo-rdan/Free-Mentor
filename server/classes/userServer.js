@@ -2,27 +2,26 @@
 import users from '../models/users';
 
 class User {
-  constructor() {
-    this.id = null;
-    this.firstName = null;
-    this.lastName = null;
-    this.email = null;
-    this.password = null;
-    this.address = null;
-    this.bio = null;
-    this.occupation = null;
-    this.expertise = null;
-    this.isAdmin = false;
-  }
-
-  create(object) {
+  static create(object) {
     users.mentee.push(object);
   }
 
   static findByEmail(email) {
-    const foundEmail = users.mentee.find(f => f.email === email);
-    return foundEmail;
+    const foundUserEmail = users.mentee.find(f => f.email === email);
+    const foundMentorEmail = users.mentor.find(m => m.email === email);
+    if (foundUserEmail) return foundUserEmail;
+    else if (foundMentorEmail) return foundMentorEmail;
+    else return false;
+  }
+
+  static findById(id) {
+    const foundId = users.mentee.find(f => f.menteeId === id);
+    if(foundId){
+      return foundId;
+    } else {
+      return false;
+    }
   }
 }
 
-export default User;
+export default User; 
