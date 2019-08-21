@@ -18,26 +18,26 @@ class controlUser {
     if (isEmail) {
       res.status(409).send({ status: 409, message: 'This email is already signed up' });
     } else {
-      const newMentee = new User();
-      newMentee.id = users.mentee.length + 1;
-      newMentee.firstName = firstName;
-      newMentee.lastName = lastName;
-      newMentee.email = email;
-      newMentee.password = hashedPassword;
-      newMentee.address = address;
-      newMentee.bio = bio;
-      newMentee.occupation = occupation;
-      newMentee.expertise = expertise;
-
-      newMentee.create(newMentee);
-      const token = jwt.sign({ id:newMentee.id, email:newMentee.email, isAdmin:newMentee.isAdmin }, process.env.secret);
+      const newUser = {
+      menteeId: users.mentee.length + 1,
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      address,
+      bio,
+      occupation,
+      expertise,
+      isAdmin: false
+      }
+      User.create(newUser);
+      const token = jwt.sign({ id:newUser.menteeId, email:newUser.email, isAdmin:newUser.isAdmin }, process.env.secret);
       res.status(201).send({ status: 201, data: token, message: 'User created successfully' });
     }
   }
   static signinUser(req,res) {
     const { email, password } = req.body;
     const isEmailExist = User.findByEmail(email);
-    
     if(isEmailExist) {
       const verifiedPassword = bcrypt.compareSync(password,isEmailExist.password);
       if(verifiedPassword) {
