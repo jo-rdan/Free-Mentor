@@ -14,7 +14,6 @@ class controlUser {
     
     const isEmail = User.findByEmail(email);
 
-  
     if (isEmail) {
       res.status(409).send({ status: 409, message: 'This email is already signed up' });
     } else {
@@ -41,7 +40,7 @@ class controlUser {
     if(isEmailExist) {
       const verifiedPassword = bcrypt.compareSync(password,isEmailExist.password);
       if(verifiedPassword) {
-        const token = jwt.sign({ id: isEmailExist.id, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
+        const token = jwt.sign({ id: isEmailExist.menteeId, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
         res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
       } else {
         res.status(401).send({ status: 401, message: 'The password provided is incorrect, please try again' });

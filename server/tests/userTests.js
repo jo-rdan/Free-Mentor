@@ -396,7 +396,7 @@ describe('Authentication tests', () => {
       });
   });
   it('should be able to get all mentors', (done) => {
-    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjQ2Njg4MH0.gOTB-mQLsyyoZDjFaYYuXB9JuZT3twQjSTrxtHpPLmo')
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
         res.should.has.status(200);
         done();
@@ -410,7 +410,7 @@ describe('Authentication tests', () => {
       });
   });
   it('should not be able to get all mentors when token is invalid', (done) => {
-    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2Mzk3MjU2fQ.mdwgyrR4OvV8butVDN73WATfRFixByHkPOCSbgkziyA')
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
         res.should.has.status(401);
         done();
@@ -418,7 +418,7 @@ describe('Authentication tests', () => {
   });
   it('should be able to get a mentor', (done) => {
     const mentorId = 1;
-    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjQ2NzQxOH0.UOqcL6H4buMMCsxTETeOA4OmN7fIUVP7s0U2dg1p0Ls')
+    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
         res.should.has.status(200);
         done();
@@ -434,7 +434,7 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get a mentor when token is invalid', (done) => {
     const mentorId = 1;
-    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjQ2NzQxOH0.UOqcL6H4buMMCsxTETeOA4OmN7fIUVP7s0U2dg1p0Ls')
+    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
         res.should.has.status(401);
         done();
@@ -442,10 +442,105 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get a mentor when id is not found', (done) => {
     const mentorId = 100;
-    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjQ2NzQxOH0.UOqcL6H4buMMCsxTETeOA4OmN7fIUVP7s0U2dg1p0Ls')
+    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
         res.should.has.status(404);
         done();
       });
   });
+});
+
+/* Session tests*/
+
+describe('Session tests', () => {
+  it('should be able to create mentorship request', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(201);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when email is invalid', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoegmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(400);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when questions is invalid', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'Howtobeasoftwaredeveloper'
+    }).end((err,res) => {
+      res.should.have.status(400);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when token is not provided', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'Howtobeasoftwaredeveloper?'
+    }).end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when token is invalid', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when is admin', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2NDY2NDg3fQ.3nvpBIRh3NcoIlkfhpxP7tNSdgVDmsmYEbFVRy06nGA')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(403);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when is a mentor', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjU0MjIwNX0.PWdd88wtGe5Ay5dBF6PSuqJusCGEeq7vP6tj5thCedM')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(403);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when user not found', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoe1@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when user not found', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'jordankayinamura@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
 });
