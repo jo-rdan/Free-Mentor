@@ -395,4 +395,25 @@ describe('Authentication tests', () => {
         done();
       });
   });
+  it('should be able to get all mentors', (done) => {
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MzE1NTU4MjQ3fQ.k9slybIs8z7CBFE2F0ROQLfmbJuoIELzEcIpMcN3yBo')
+      .end((err, res) => {
+        res.should.has.status(200);
+        done();
+      });
+  });
+  it('should not be able to get all mentors when token not provided', (done) => {
+    chai.request(app).get('/api/v1/mentors').set('x-token','')
+      .end((err, res) => {
+        res.should.has.status(401);
+        done();
+      });
+  });
+  it('should not be able to get all mentors when token is invalid', (done) => {
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2Mzk3MjU2fQ.mdwgyrR4OvV8butVDN73WATfRFixByHkPOCSbgkziyA')
+      .end((err, res) => {
+        res.should.has.status(401);
+        done();
+      });
+  });
 });

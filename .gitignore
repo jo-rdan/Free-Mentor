@@ -1,4 +1,4 @@
-.nyc_output
 .env
+.nyc_output
 package-lock.json
 node_modules/

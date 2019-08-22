@@ -50,6 +50,12 @@ class controlUser {
       res.status(401).send({ status: 401, message: 'The email provided is incorrect, please try again' });
     }
   }
+
+  static getAllMentors (req,res) {
+    const mentors = User.getAll();
+    return res.status(200).send({ status: {integer:200}, data: mentors });
+  }
+
 }
 
 export default controlUser;
