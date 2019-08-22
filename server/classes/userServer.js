@@ -22,6 +22,10 @@ class User {
       return false;
     }
   }
+
+  static getAll() {
+    return users.mentor;
+  }
 }
 
 export default User; 

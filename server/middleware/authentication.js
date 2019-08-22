@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import user from '../classes/userServer';
 
 dotenv.config();
 
@@ -21,6 +22,20 @@ class Authenticate {
     } catch (error) {
       return res.status(401).send({ status: { Integer: 401 }, error: { message: error.message } })
     } 
+  }
+
+  static authUser (req,res,next) {
+    try{
+      const tokens = req.header('x-token');
+      if (tokens) {
+        req.payload = jwt.verify(tokens, process.env.secret);
+        next();
+      } else { 
+        return res.status(401).send({ status: { Integer: 401 }, error: 'Unauthorized user' });
+      }
+    } catch (error) {
+      return res.status(401).send({ status: { Integer: 401 }, error: error.message });
+    }
   }
 }
 
