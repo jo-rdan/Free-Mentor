@@ -22,6 +22,14 @@ class User {
       return false;
     }
   }
+  static findMentorById(id) {
+    const foundMentor = users.mentor.find(f => f.mentorId === id);
+    if(foundMentor){
+      return foundMentor;
+    } else {
+      return false;
+    }
+  }
 
   static getAll() {
     return users.mentor;

@@ -1,6 +1,6 @@
+/* eslint-disable */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import user from '../classes/userServer';
 
 dotenv.config();
 
