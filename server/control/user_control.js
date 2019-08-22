@@ -56,6 +56,16 @@ class controlUser {
     return res.status(200).send({ status: {integer:200}, data: mentors });
   }
 
+  static getMentor(req,res) {
+    const id = parseInt(req.params.mentorId);
+    const mentor = User.findMentorById(id);
+    if(mentor){
+    return res.status(200).send({ status: { Integer: 200 }, data: mentor });
+    } else {
+      return res.status(404).send({ status:{Integer: 404}, error: 'User not found' });
+    }
+  }
+
 }
 
 export default controlUser;
