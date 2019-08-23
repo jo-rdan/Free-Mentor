@@ -22,7 +22,20 @@ const users = {
     occupation: 'Software Developer',
     expertise: 'Software Engineering',
     isAdmin: false
-  }],
+  },
+  {
+    menteeId: 3, 
+    firstName: 'Jordan',
+    lastName: 'Kayinamura',
+    email: 'kayinamura1@gmail.com',
+    password: '$2b$10$ttQnxV0Rq9lLk5tPKRzbN.aDBmx3AjSpaCkrPFgdW5r2JCj4Zr93C',
+    address: 'kinyinya',
+    bio: 'I am a software developer who wants to be a world-class one',
+    occupation: 'Software Developer',
+    expertise: 'Software Engineering',
+    isAdmin: false
+  }
+],
   mentor:[{ 
     mentorId: 1,
     firstName: 'John',
