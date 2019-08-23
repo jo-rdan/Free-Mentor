@@ -2,6 +2,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import users from '../classes/userServer';
+import sessions from '../models/sessionsReq';
 
 dotenv.config();
 
@@ -15,13 +16,13 @@ class Authenticate {
           req.payload = payload;
           next();
         } else {
-          return res.status(403).send({ status: { Integer: 403 }, error: { message: 'You are not allowed to perform this action' } });
+          return res.status(403).send({ status: 403, error: 'You are not allowed to perform this action' });
         }
       } else {
-        return res.status(401).send({ status: { Integer: 401 }, error: { message: 'Access Denied' } });
+        return res.status(401).send({ status: 401, error: 'Access Denied'});
       }
     } catch (error) {
-      return res.status(401).send({ status: { Integer: 401 }, error: { message: error.message } })
+      return res.status(401).send({ status: 401, error: error.message })
     }
   }
 
@@ -31,9 +32,9 @@ class Authenticate {
       if (tkens) {
         req.payload = jwt.verify(tkens, process.env.secret);
         next();
-      } else return res.status(401).send({ status: { Integer: 401 }, error: 'Unauthorized user' });
+      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
     } catch (error) {
-      return res.status(401).send({ status: { Integer: 401 }, error: error.message });
+      return res.status(401).send({ status: 401, error: error.message });
     }
   }
 
@@ -48,17 +49,37 @@ class Authenticate {
             if (payload.email !== isUser.email) {
               req.payload = payload;
               next();
-            } else return res.status(403).send({ status: { Integer: 403 }, error: 'You are not allowed to create a mentorship request' });
-          } else return res.status(403).send({ status: { Integer: 403 }, error: 'Admin cannot create a mentorship request' });
+            } else return res.status(403).send({ status: 403, error: 'You are not allowed to create a mentorship request' });
+          } else return res.status(403).send({ status: 403, error: 'Admin cannot create a mentorship request' });
         } else {
-          return res.status(401).send({ status: { Integer: 401 }, error: 'Unauthorized user' });
+          return res.status(401).send({ status: 401, error: 'Unauthorized user' });
         }
       } else {
-        return res.status(401).send({ status: { Integer: 401 }, error: 'Unauthorized user' });
+        return res.status(401).send({ status: 401, error: 'Unauthorized user' });
       }
 
     } catch (error) {
-      return res.status(401).send({ status: { Integer: 401 }, error: error.message });
+      return res.status(401).send({ status: 401, error: error.message });
+    }
+  }
+
+  static authAcceptRequest(req, res, next) {
+    try {
+      const x_token = req.header('x-token');
+      const sessionFound = sessions.find(f => f.sessionId == req.params.id);
+      if (x_token) {
+        const payload = jwt.verify(x_token, process.env.secret);
+        if(sessionFound) {
+          if (payload.id === sessionFound.mentorId) {
+            req.payload = payload;
+            next();
+          } else {
+            return res.status(403).send({ status: 403, error: 'You cannot accept or reject this request' });
+          }
+        } else return res.status(404).send({ status: 404, error: 'session request not found'});
+      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+    } catch (error) {
+      return res.status(401).send({ status: 401, error: error.message });    
     }
   }
 }

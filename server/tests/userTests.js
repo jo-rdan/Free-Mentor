@@ -543,4 +543,60 @@ describe('Session tests', () => {
       done();
     })
   }));
+  it('should be able to accept mentorship request', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    .end((err,res) => {
+      res.should.have.status(200);
+      done();
+    })
+  }));
+  it('should not be able to accept mentorship request when token is not provided', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','')
+    .end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to accept mentorship request when token is invalid', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    .end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to accept mentorship request when already accepted', (done => {
+    const id = 1;
+    const session = {
+      sessionId: 1,
+      mentorId: 1,
+      menteeId: 2,
+      questions: 'How to be a mentor?',
+      menteeEmail: 'kayinamura1@gmail.com',
+      status: 'accepted'
+    }
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    .end((err,res) => {
+      res.should.have.status(401);
+      done();
+    })
+  }));
+  it('should not be able to accept mentorship request when is not mentor', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
+    .end((err,res) => {
+      res.should.have.status(403);
+      done();
+    })
+  }));
+  it('should not be able to accept mentorship request when session is not found', (done => {
+    const id = 109;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    .end((err,res) => {
+      res.should.have.status(404);
+      done();
+    })
+  }));
 });

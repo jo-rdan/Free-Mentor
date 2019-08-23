@@ -13,7 +13,6 @@ app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use('/api/v1/auth/', userRoute);
 app.use('/api/v1/', userRoute);
-app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
 
 const PORT = process.env.PORT || 3000;
