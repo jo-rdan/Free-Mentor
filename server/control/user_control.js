@@ -31,7 +31,7 @@ class controlUser {
       }
       User.create(newUser);
       const token = jwt.sign({ id:newUser.menteeId, email:newUser.email, isAdmin:newUser.isAdmin }, process.env.secret);
-      res.status(201).send({ status: 201, data: token, message: 'User created successfully' });
+      return res.status(201).send({ status: 201, data: token, message: 'User created successfully' });
     }
   }
   static signinUser(req,res) {
@@ -40,13 +40,16 @@ class controlUser {
     if(isEmailExist) {
       const verifiedPassword = bcrypt.compareSync(password,isEmailExist.password);
       if(verifiedPassword) {
-        const token = jwt.sign({ id: isEmailExist.menteeId, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
-        res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
+        let ids = null;
+        if (isEmailExist.menteeId) ids = isEmailExist.menteeId;
+        ids = isEmailExist.mentorId;
+        const token = jwt.sign({ id: ids, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
+        return res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
       } else {
-        res.status(401).send({ status: 401, message: 'The password provided is incorrect, please try again' });
+        return res.status(401).send({ status: 401, message: 'The password provided is incorrect, please try again' });
       } 
     } else {
-      res.status(401).send({ status: 401, message: 'The email provided is incorrect, please try again' });
+      return res.status(401).send({ status: 401, message: 'The email provided is incorrect, please try again' });
     }
   }
 
