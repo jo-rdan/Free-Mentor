@@ -16,7 +16,7 @@ class SessionController {
         status: 'pending'
       });
       return res.status(201).send({
-        status: { Integer: 201 }, 
+        status: 201, 
         data: {
           sessionId: sessions.length + 1,
           mentorId: isMentor.mentorId,
@@ -27,15 +27,15 @@ class SessionController {
         } 
       });
     } 
-    return res.status(401).send({ status: { Integer: 401 }, error: 'Unauthorized user' });
+    return res.status(401).send({ status: 401, error: 'Unauthorized user' });
   }
 
   static acceptMentorship(req, res) {
     const sessionFound = sessions.find(f => f.sessionId == req.params.id);
     if (sessionFound.status === 'pending') {
       sessionFound.status = 'accepted';
-      return res.status(200).send({ status:{Integer:200}, data: sessionFound });
-    } else return res.status(401).send({ status: { Integer: 401 }, error: 'This session request is already accepted'});
+      return res.status(200).send({ status: 200, data: sessionFound });
+    } else return res.status(401).send({ status: 401, error: 'This session request is already accepted'});
   } 
 }
 
