@@ -13,5 +13,6 @@ router.get('/mentors', auth.authUser,userControl.getAllMentors);
 router.get('/mentors/:mentorId', auth.authUser,userControl.getMentor);
 router.post('/sessions', sessValidate,auth.authSession,sessions.create);
 router.patch('/sessions/:id/accept',auth.authAcceptRequest, sessions.acceptMentorship);
+router.patch('/sessions/:id/reject',auth.authAcceptRequest, sessions.declineMentorship);
 
 export default router;

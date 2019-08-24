@@ -37,6 +37,13 @@ class SessionController {
       return res.status(200).send({ status: 200, data: sessionFound });
     } else return res.status(401).send({ status: 401, error: 'This session request is already accepted'});
   } 
+  static declineMentorship(req, res) {
+    const sessionFound = sessions.find(f => f.sessionId == req.params.id);
+    if (sessionFound.status === 'accepted') {
+      sessionFound.status = 'rejected';
+      return res.status(200).send({ status: 200, data: sessionFound });
+    } else return res.status(401).send({ status: 401, error: 'This session request is already rejected'});
+  } 
 }
 
 export default SessionController;
