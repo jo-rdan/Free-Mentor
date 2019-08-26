@@ -15,7 +15,7 @@ class controlUser {
     const isEmail = User.findByEmail(email);
 
     if (isEmail) {
-      res.status(409).send({ status: 409, message: 'This email is already signed up' });
+      res.status(401).send({ status: 401, message: 'This email is already signed up' });
     } else {
       const newUser = {
       menteeId: users.mentee.length + 1,
@@ -40,11 +40,19 @@ class controlUser {
     if(isEmailExist) {
       const verifiedPassword = bcrypt.compareSync(password,isEmailExist.password);
       if(verifiedPassword) {
-        let ids = null;
-        if (isEmailExist.menteeId) ids = isEmailExist.menteeId;
-        ids = isEmailExist.mentorId;
-        const token = jwt.sign({ id: ids, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
-        return res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
+        let idMentor = null;
+        let idMentee = null;
+        if (isEmailExist.menteeId) {
+          idMentee = isEmailExist.menteeId; 
+          const token = jwt.sign({ id: idMentee, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
+          return res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
+        }
+        else if(isEmailExist.mentorId) {
+          idMentor = isEmailExist.mentorId;
+          const token = jwt.sign({ id: idMentor, email: isEmailExist.email, isAdmin: isEmailExist.isAdmin }, process.env.secret);
+          return res.status(200).send({ status: 200, data: token, message: 'User is successfully logged in' });
+        };
+       
       } else {
         return res.status(401).send({ status: 401, message: 'The password provided is incorrect, please try again' });
       } 

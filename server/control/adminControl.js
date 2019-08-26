@@ -11,7 +11,19 @@ class Admin {
         if (changeUser.isAdmin === true) {
           return res.status(403).send({ status: 403 , error: 'Admin cannot be changed to mentor' });
         } else {
-          users.mentor.push(changeUser);
+          const { firstName, lastName, email, address, bio, occupation, expertise, isAdmin } = changeUser;
+          const newMentor = {
+            mentorId: changeUser.menteeId,
+            firstName,
+            lastName,
+            email,
+            address,
+            bio,
+            occupation,
+            expertise,
+            isAdmin
+          }
+          users.mentor.push(newMentor);
           const index = users.mentee.indexOf(changeUser.id);
           users.mentee.splice(index, 1);
 

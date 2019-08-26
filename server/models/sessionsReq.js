@@ -15,6 +15,14 @@ const sessions = [
     menteeEmail: 'kayinamura1@gmail.com',
     status: 'accepted'
   },
+  {
+    sessionId: 3,
+    mentorId: 1,
+    menteeId: 2,
+    questions: 'How to be a businessman',
+    menteeEmail: 'kayinamura@gmail.com',
+    status: 'rejected'
+  },
 ]
 
 export default sessions;

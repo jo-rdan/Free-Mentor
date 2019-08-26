@@ -294,7 +294,7 @@ describe('Authentication tests', () => {
       expertise: 'software engineering'
     })
       .end((err, res) => {
-        res.should.has.status(409);
+        res.should.has.status(401);
         done();
       });
   });
@@ -551,6 +551,22 @@ describe('Session tests', () => {
       done();
     })
   }));
+  it('should be able to accept mentorship request when is rejected', (done => {
+    const id = 3;
+    const session = {
+      sessionId: 3,
+      mentorId: 1,
+      menteeId: 2,
+      questions: 'How to be a businessman',
+      menteeEmail: 'kayinamura@gmail.com',
+      status: 'rejected'
+    }
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    .end((err,res) => {
+      res.should.have.status(200);
+      done();
+    })
+  }));
   it('should not be able to accept mentorship request when token is not provided', (done => {
     const id = 1;
     chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token','')
@@ -599,8 +615,33 @@ describe('Session tests', () => {
       done();
     })
   }));
-  it('should be able to decline mentorship request', (done => {
+  it('should be able to decline mentorship request when is pending', (done => {
     const id = 1;
+    const sessions = 
+      {
+      sessionId: 1,
+      mentorId: 1,
+      menteeId: 2,
+      questions: 'How to be a stoner',
+      menteeEmail: 'kayinamura@gmail.com',
+      status: 'pending'
+      }
+    chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should be able to decline mentorship request when is accepted', (done => {
+    const id = 2;
+    const session = {
+      sessionId: 2,
+      mentorId: 1,
+      menteeId: 3,
+      questions: 'How to be a businessman',
+      menteeEmail: 'kayinamura1@gmail.com',
+      status: 'accepted'
+    }
     chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
       .end((err, res) => {
         res.should.have.status(200);
@@ -624,21 +665,22 @@ describe('Session tests', () => {
       })
   }));
   it('should not be able to decline mentorship request when already rejected', (done => {
-    const id = 1;
+    const id = 2;
     const session = {
-      sessionId: 1,
+      sessionId: 2,
       mentorId: 1,
-      menteeId: 2,
-      questions: 'How to be a mentor?',
+      menteeId: 3,
+      questions: 'How to be a businessman',
       menteeEmail: 'kayinamura1@gmail.com',
       status: 'rejected'
     }
-    chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY1NTQ0NjJ9.RUIe0LWAObia-sirOarbYIyT7XfyjM05_CpYTOX0JNw')
+    chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY2ODkwMDh9.1wgK7VxfAUdCvmov43SGwfJSZC4-Rkefl6s3DZlETmo')
       .end((err, res) => {
         res.should.have.status(401);
         done();
       })
   }));
+
   it('should not be able to decline mentorship request when is not mentor', (done => {
     const id = 1;
     chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
