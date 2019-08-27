@@ -55,7 +55,7 @@ class Authenticate {
           return res.status(401).send({ status: 401, error: 'Unauthorized user' });
         }
       } else {
-        return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+        return res.status(401).send({ status: 401, error: 'Unauthorized user!' });
       }
 
     } catch (error) {
@@ -66,10 +66,11 @@ class Authenticate {
   static authAcceptRequest(req, res, next) {
     try {
       const x_token = req.header('x-token');
-      const sessionFound = sessions.find(f => f.sessionId == req.params.id);
+      const id = parseInt(req.params.id);
+      const sessionFound = sessions.find(f => f.sessionId === id);
       if (x_token) {
         const payload = jwt.verify(x_token, process.env.secret);
-        if(sessionFound) {
+        if(sessionFound) {         
           if (payload.id === sessionFound.mentorId) {
             req.payload = payload;
             next();
