@@ -666,14 +666,7 @@ describe('Session tests', () => {
   }));
   it('should not be able to decline mentorship request when already rejected', (done => {
     const id = 2;
-    const session = {
-      sessionId: 2,
-      mentorId: 1,
-      menteeId: 3,
-      questions: 'How to be a businessman',
-      menteeEmail: 'kayinamura1@gmail.com',
-      status: 'rejected'
-    }
+
     chai.request(app).patch(`/api/v1/sessions/${id}/reject`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjY2ODkwMDh9.1wgK7VxfAUdCvmov43SGwfJSZC4-Rkefl6s3DZlETmo')
       .end((err, res) => {
         res.should.have.status(401);
@@ -697,4 +690,117 @@ describe('Session tests', () => {
         done();
       })
   }));
+});
+
+describe('Review Tests', () => {
+ it('should be able to review session', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(200);
+     done();
+   })
+ }));
+ it('should not be able to review session when score is less than 1', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 0,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(400);
+     done();
+   })
+ }));
+ it('should not be able to review session when score is greater than 5', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 10,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(400);
+     done();
+   })
+ }));
+ it('should not be able to review session when remark is empty', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 4,
+     remark: ''
+   })
+   .end((err,res) => {
+     res.should.have.status(400);
+     done();
+   })
+ }));
+ it('should not be able to review session when remark is invalid', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 4,
+     remark: '@4335'
+   })
+   .end((err,res) => {
+     res.should.have.status(400);
+     done();
+   })
+ }));
+ it('should not be able to review session when token not provided', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(401);
+     done();
+   }); 
+ }));
+ it('should not be able to review session when token is invalid', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(401);
+     done();
+   })
+ }));
+ it('should not be able to review session when session not found', (done => {
+   const id = 19;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+     .end((err, res) => {
+       res.should.have.status(404);
+       done();
+     })
+ }));
+ it('should not be able to review session when token is not from the user who created the session', (done => {
+  const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MzE1NTYzODAxfQ.HaL0MCtPEvV0xQMXnvI0oKmfM0GL59TDh2HZqQ_WruE').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(403);
+     done();
+   })
+ }));
+ it('should not be able to review session when the session is not accepted yet', (done => {
+  const id = 1;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NjcyMDcwMzl9.2BusG1GrUEm22CcBkJ-0faFY4yQKW4fsgCwyfwaLwnI').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+   .end((err,res) => {
+     res.should.have.status(403);
+     done();
+   })
+ }));
 });

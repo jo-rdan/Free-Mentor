@@ -1,5 +1,5 @@
 /* eslint-disable */ 
-const strings = /\S+[^.!?]*[.!?]/;
+const strings = /\S+[a-zA-Z_ .!?]*[.!?]/;
 const emails = /^\S+@[\w\-]+\.[A-Za-z]{2,}$/;
 
 const validateSession = (req,res,next) => {
