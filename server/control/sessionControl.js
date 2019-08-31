@@ -1,6 +1,7 @@
 /* eslint-disable*/
 import session from '../classes/sessionServer';
 import sessions from '../models/sessionsReq';
+import user from '../models/users';
 
 class SessionController {
   static create(req, res) {
@@ -46,9 +47,28 @@ class SessionController {
 
     if (foundSession.status === 'pending' || foundSession.status === 'accepted') {
       foundSession.status = 'rejected';
-      return res.status(200).send({ status: 200, data: foundSession});
+      return res.status(200).send({ status: 200, data: foundSession });
     }
-    return res.status(401).send({ status: 401, error: 'This session is already rejected'});    
+    return res.status(401).send({ status: 401, error: 'This session is already rejected' });
+  }
+
+  static reviewMentor(req, res) {
+    const { score, remark } = req.body;
+    const isSession = sessions.find(f => f.sessionId == req.params.id);
+    const mentee = user.mentee.find(p => p.email == isSession.menteeEmail);
+    if (isSession.status !== 'accepted') return res.status(403).send({ status: 403, error: 'This session is not accepted yet'})
+    const newReview = {
+      sessionId: isSession.sessionId,
+      mentorId: isSession.mentorId,
+      menteeId: req.payload.id,
+      score,
+      menteeFullNames: mentee.firstName + ' ' + mentee.lastName,
+      remark
+    }
+
+    session.createReview(newReview);
+    return res.status(200).send({ status: 200, data: newReview });
+
   }
 }
 

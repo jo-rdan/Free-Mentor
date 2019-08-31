@@ -19,7 +19,7 @@ class Authenticate {
           return res.status(403).send({ status: 403, error: 'You are not allowed to perform this action' });
         }
       } else {
-        return res.status(401).send({ status: 401, error: 'Access Denied'});
+        return res.status(401).send({ status: 401, error: 'Access Denied' });
       }
     } catch (error) {
       return res.status(401).send({ status: 401, error: error.message })
@@ -70,17 +70,35 @@ class Authenticate {
       const sessionFound = sessions.find(f => f.sessionId === id);
       if (x_token) {
         const payload = jwt.verify(x_token, process.env.secret);
-        if(sessionFound) {         
+        if (sessionFound) {
           if (payload.id === sessionFound.mentorId) {
             req.payload = payload;
             next();
           } else {
             return res.status(403).send({ status: 403, error: 'You cannot accept or reject this request' });
           }
-        } else return res.status(404).send({ status: 404, error: 'session request not found'});
+        } else return res.status(404).send({ status: 404, error: 'session request not found' });
       } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
     } catch (error) {
-      return res.status(401).send({ status: 401, error: error.message });    
+      return res.status(401).send({ status: 401, error: error.message });
+    }
+  }
+
+  static authReview(req, res, next) {
+    try {
+      const tok = req.header('x-token');
+      const findSession = sessions.find(p => p.sessionId == req.params.id);
+      if (tok) {
+        const data = jwt.verify(tok, process.env.secret);
+        if (findSession) {
+          if (data.email === findSession.menteeEmail) {
+            req.payload = data;
+            next();
+          } else return res.status(403).send({ status: 403, error: 'You cannot review this session' })
+        } else return res.status(404).send({ status: 404, error: 'Session not found' });
+      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+    } catch (error) {
+      return res.status(401).send({ status: 401, error: error.message });
     }
   }
 }

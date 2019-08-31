@@ -1,5 +1,6 @@
 import sessions from '../models/sessionsReq';
 import users from '../models/users';
+import review from '../models/reviews';
 
 class Session {
 
@@ -13,6 +14,10 @@ class Session {
       return foundEmail;
     } 
     return false;
+  }
+
+  static createReview(object) {
+    review.push(object);
   }
 }
 
