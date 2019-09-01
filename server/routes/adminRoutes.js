@@ -5,5 +5,6 @@ import authent from '../middleware/authentication';
 const router = express.Router();
 
 router.patch('/user/:id', authent.auth, admin.changeUserToMentor);
+router.delete('/sessions/:id/review', authent.auth, admin.deleteReview);
 
 export default router;

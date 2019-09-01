@@ -1,6 +1,7 @@
 /* eslint-disable */
 import user from '../classes/userServer';
 import users from '../models/users';
+import review from '../models/reviews';
 
 class Admin {
   static changeUserToMentor(req,res) {
@@ -32,6 +33,15 @@ class Admin {
       } else {
         return res.status(404).send({ status: 404, error: 'User not found' });
       }
+  }
+
+  static deleteReview(req,res) {
+    const isExistReview = review.find(f => f.sessionId === parseInt(req.params.id));
+    if(isExistReview) {
+      const index = review.indexOf(isExistReview);
+      review.splice(index,1);
+      return res.status(200).send({ status: 200, data: { message: 'Review successfully deleted!'}});
+    } else return res.status(403).send({ status: 403, error: 'This session is not reviewed yet or it does not exist'});
   }
 }
 
