@@ -56,3 +56,22 @@ describe('Admin authentication tests', () => {
     });
   });
 });
+
+describe('Admin can delete a review', () => {
+  it('should be able to delete review when token provided is from admin', (done) =>{
+    const id = 4;
+    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzM2NDQyMn0.oahsZwdgV8-1NSQqKmiq-2tT3cWs-m0rKSFJATLtuzg')
+    .end((error, res) => {
+      res.should.have.status(200);
+      done();
+    });
+  });
+  it('should not be able to delete review when review not found', (done) =>{
+    const id = 14;
+    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzM2NDQyMn0.oahsZwdgV8-1NSQqKmiq-2tT3cWs-m0rKSFJATLtuzg')
+    .end((error, res) => {
+      res.should.have.status(403);
+      done();
+    });
+  });
+});

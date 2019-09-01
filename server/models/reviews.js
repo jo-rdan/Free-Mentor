@@ -6,6 +6,14 @@ const reviews = [
     score: 3,
     menteeFullName: 'Jordan Kayinamura',
     remark: 'Remarkable mentor'
+  },
+  {
+    sessionId: 4,
+    mentorId: 1,
+    menteeId: 4,
+    score: 4,
+    menteeFullNames: 'Joey Rwandan',
+    remark: 'Excellent mentor!'
   }
 ]
 
