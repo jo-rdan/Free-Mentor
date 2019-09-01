@@ -20,7 +20,7 @@ Free Mentor is a social initiative where accomplished professionals become role 
 Follow this link to my pivotal tracker board [PT board]( https://www.pivotaltracker.com/projects/2379765)
 
 ### UI Template
-Follow this link to view all my UI pages [Mentors](https://jo-rdan.github.io/Free-Mentor/UI/pages/signup.html)
+Follow this link to view all my UI pages [Mentors](https://jo-rdan.github.io/Free-Mentor/UI/)
 
 #### Technologies used for this design
 - HTML5
