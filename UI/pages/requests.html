@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,93 +8,111 @@
   <link rel="stylesheet" href="../css/requests.css">
   <title>Requests</title>
 </head>
+
 <body>
-  <nav><img src="../assets/LogoMakr_8c0Guh.jpg" alt=""></nav>
+  <nav class="nav-bar">
+    <div class="logo"><img src="../assets/LogoMakr_8c0Guh.jpg" alt=""></div>
+    <div class="links">
+      <ul>
+        <li><a href="signin.html">Sign Out</a></li>
+      </ul>
+      <div class="menu"><img src="./assets/menu.png" alt=""></div>
+    </div>
+  </nav>
   <div class="container">
-      <div class="requests">
-        <h1>All users requests</h1>
-        <div class="underline"></div>
-      </div>
-      <div class="req-table">
-        <table>
-          <tr class="selected">
-            <th>
-              <h4>First Name</h4>
-            </th>
-            <th>
-              <h4>Last Name</h4>
-            </th>
-            <th>
-              <h4>Email</h4>
-            </th>
-            <th>
-              <h4>Address</h4>
-            </th>
-            <th>
-              <h4>Expertise</h4>
-            </th>
-            <th>
-              <h4>Actions</h4>
-            </th>
-          </tr>
-          <tr>
-            <td>Jordan</td>
-            <td>Kayinamura</td>
-            <td>jordankayinamura@gmail.com</td>
-            <td>Kinyinya</td>
-            <td>Software Engineering</td>
-            <td colspan="2">
-              <div class="action-btn accept"  id ="acc1"><button onclick="hide_declineOne()">Accept</button></div>
-              <div class="action-btn decline"  id ="dec1"><button onclick="hide_acceptOne()">Decline</button></div>
-            </td>
-          </tr>
-          <tr class="selected">
-            <td>Markee</td>
-            <td>Anthony</td>
-            <td>markeeant@gmail.com</td>
-            <td>France</td>
-            <td>Business Engineering</td>
-            <td colspan="2">
-              <div class="action-btn accept"  id="acc2"><button onclick="hide_declineTwo()">Accept</button></div>
-              <div class="action-btn decline"  id="dec2"><button onclick="hide_acceptTwo()"> Decline</button></div>
-            </td>
-          </tr>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>johndoe@gmail.com</td>
-            <td>West</td>
-            <td>Software Testing</td>
-            <td colspan="2">
-              <div class="action-btn accept"  id="acc3"><button onclick="hide_declineThree()">Accept</button></div>
-              <div class="action-btn decline"  id="dec3"><button onclick="hide_acceptThree()">Decline</button></div>
-            </td>
-          </tr>
-          <tr class="selected">
-            <td>Will</td>
-            <td>Smith</td>
-            <td>smithwill@gmail.com</td>
-            <td>USA</td>
-            <td>Acting Engineering</td>
-            <td colspan="2">
-              <div class="action-btn accept" id="acc4"><button onclick="hide_declineFour()">Accept</button></div>
-              <div class="action-btn decline" id="dec4"><button onclick="hide_acceptFour()">Decline</button></div>
-            </td>
-          </tr>
-          <tr>
-            <td>Alan</td>
-            <td>Walker</td>
-            <td>thewalkers@gmail.com</td>
-            <td>Norway</td>
-            <td>Music Production</td>
-            <td colspan="2">
-              <div class="action-btn accept" id="accept"><button onclick="hide_declineFive()">Accept</button></div>
-              <div class="action-btn decline" id="decline"><button onclick="hide_acceptFive()">Decline</button></div>
-            </td>
-          </tr>
-        </table>
-      </div>
+    <div class="requests">
+      <h1>Mentor Dashboard</h1>
+      <div class="underline"></div>
+    </div>
+    <div class="req-table">
+      <table>
+        <tr class="selected">
+          <th>
+            <h4>User</h4>
+          </th>
+          <th>
+            <h4>First Name</h4>
+          </th>
+          <th>
+            <h4>Last Name</h4>
+          </th>
+          <th>
+            <h4>Email</h4>
+          </th>
+          <th>
+            <h4>Address</h4>
+          </th>
+          <th>
+            <h4>Expertise</h4>
+          </th>
+          <th>
+            <h4>Actions</h4>
+          </th>
+        </tr>
+        <tr>
+          <td class="img-user"><img src="../assets/mentor1.jpg" alt="" width="70px"></td>
+          <td>Jordan</td>
+          <td>Kayinamura</td>
+          <td>jordankayinamura@gmail.com</td>
+          <td>Kinyinya</td>
+          <td>Software Engineering</td>
+          <td colspan="2">
+            <div class="action-btn accept" id="acc1"><button onclick="hide_declineOne()">Accept</button></div>
+            <div class="action-btn decline" id="dec1"><button onclick="hide_acceptOne()">Decline</button></div>
+          </td>
+        </tr>
+        <tr class="selected">
+          <td class="img-user"><img src="../assets/mentor5.jpg" alt="" width="70px"></td>
+          <td>Markee</td>
+          <td>Anthony</td>
+          <td>markeeant@gmail.com</td>
+          <td>France</td>
+          <td>Business Engineering</td>
+          <td colspan="2">
+            <div class="action-btn accept" id="acc2"><button onclick="hide_declineTwo()">Accept</button></div>
+            <div class="action-btn decline" id="dec2"><button onclick="hide_acceptTwo()"> Decline</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="img-user"><img src="../assets/mentor4.jpg" alt="" width="70px"></td>
+          <td>John</td>
+          <td>Doe</td>
+          <td>johndoe@gmail.com</td>
+          <td>West</td>
+          <td>Software Testing</td>
+          <td colspan="2">
+            <div class="action-btn accept" id="acc3"><button onclick="hide_declineThree()">Accept</button></div>
+            <div class="action-btn decline" id="dec3"><button onclick="hide_acceptThree()">Decline</button></div>
+          </td>
+        </tr>
+        <tr class="selected">
+          <td class="img-user"><img src="../assets/mentor3.jpg" alt="" width="70px"></td>
+          <td>Will</td>
+          <td>Smith</td>
+          <td>smithwill@gmail.com</td>
+          <td>USA</td>
+          <td>Acting Engineering</td>
+          <td colspan="2">
+            <div class="action-btn accept" id="acc4"><button onclick="hide_declineFour()">Accept</button></div>
+            <div class="action-btn decline" id="dec4"><button onclick="hide_acceptFour()">Decline</button></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="img-user"><img src="../assets/mento2.jpg" alt="" width="70px"></td>
+          <td>Alan</td>
+          <td>Walker</td>
+          <td>thewalkers@gmail.com</td>
+          <td>Norway</td>
+          <td>Music Production</td>
+          <td colspan="2">
+            <div class="action-btn accept" id="accept"><button onclick="hide_declineFive()">Accept</button></div>
+            <div class="action-btn decline" id="decline"><button onclick="hide_acceptFive()">Decline</button></div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <script src="../js/requests.js"></script>
 </body>
+
 </html>
