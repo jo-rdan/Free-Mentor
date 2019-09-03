@@ -20,7 +20,7 @@ body{
   margin: 0 20px; 
 }
 .links{
-  margin: 0 20px 0 auto;
+  margin: 0 120px 0 auto;
 }
 .links ul li{
   display: inline-block;
@@ -30,10 +30,14 @@ body{
   text-decoration: none;
   text-transform: uppercase;
   color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 6px;
 }
 .links li a:hover{
+  border-color: #6367e2;
   color: #6367e2;
-  border-radius: 5px;
+  transition: all .1s ease-in-out;
 }
 .menu{
   display: none;
@@ -68,6 +72,9 @@ body{
   padding: 7px;
   font-size: 30px;
   border: none;
+}
+.side-menu ul #close:hover{
+  cursor: pointer;
 }
 
 /* Nav bar ends */
@@ -261,6 +268,7 @@ footer{
 @media (max-width: 500px){
   .menu{
     display: block;
+    margin-left: 180px;
   }
   .links ul{
     display: none;
@@ -270,11 +278,19 @@ footer{
   }
 }
 @media(max-width: 375px){
+  .menu{
+    display: block;
+    margin-left: 130px;
+  }
   .it-mentors .it, .bz-mentors .bz, .mk-mentors .mk{
     margin: 10px 0 10px 3px;
   }  
 }
 @media(max-width: 320px){
+  .menu{
+    display: block;
+    margin-left: 95px;
+  }
   .it-mentors .it, .bz-mentors .bz, .mk-mentors .mk{
     width: 200px;
     margin: 10px 0 10px 3px;
