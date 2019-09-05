@@ -15,9 +15,12 @@ app.use('/api/v1/auth/', userRoute);
 app.use('/api/v1/', userRoute);
 app.use('/api/v1/', adminRoute);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
 });
 
+app.use('*', (req,res) => {
+  return res.status(405).send({status: 405, error: 'Incorrect route, use the correct route(POST)'});
+});
 export default app;

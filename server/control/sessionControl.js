@@ -2,7 +2,8 @@
 import session from '../classes/sessionServer';
 import sessions from '../models/sessionsReq';
 import user from '../models/users';
-
+import reviews from '../models/reviews';
+import sesh from '../models/sessionsReq';
 class SessionController {
   static create(req, res) {
     const { mentorEmail, questions } = req.body;
@@ -16,6 +17,9 @@ class SessionController {
         menteeEmail: req.payload.email,
         status: 'pending'
       }
+      const isSessionExist = sesh.find(f => f.questions === newSession.questions);
+      
+      if (isSessionExist) return res.status(409).send({ status: 409, error: 'This session is already created'});
       session.createSession(newSession);
       return res.status(201).send({
         status: 201,
@@ -55,19 +59,22 @@ class SessionController {
   static reviewMentor(req, res) {
     const { score, remark } = req.body;
     const isSession = sessions.find(f => f.sessionId == req.params.id);
+    const isReview = reviews.find(f => f.sessionId === isSession.sessionId);   
     const mentee = user.mentee.find(p => p.email == isSession.menteeEmail);
+    const mentor = user.mentor.find(fp => fp.mentorId == isSession.mentorId);
     if (isSession.status !== 'accepted') return res.status(403).send({ status: 403, error: 'This session is not accepted yet'})
-    const newReview = {
-      sessionId: isSession.sessionId,
-      mentorId: isSession.mentorId,
-      menteeId: req.payload.id,
-      score,
-      menteeFullNames: mentee.firstName + ' ' + mentee.lastName,
-      remark
+    if (isReview) return res.status(409).send({ status: 409, error: 'This session is already reviewed'});
+    else {
+      const newReview = {
+        sessionId: isSession.sessionId,
+        mentorFullNames: mentor.firstName + ' ' + mentor.lastName,
+        score,
+        menteeFullNames: mentee.firstName + ' ' + mentee.lastName,
+        remark
+      }
+      session.createReview(newReview);
+      return res.status(200).send({ status: 200, data: newReview });
     }
-
-    session.createReview(newReview);
-    return res.status(200).send({ status: 200, data: newReview });
 
   }
 }

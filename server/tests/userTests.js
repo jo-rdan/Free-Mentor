@@ -7,7 +7,15 @@ import app from '../app';
 chai.use(chaiHttp);
 chai.should();
 
-
+describe('Catch any error', () => {
+  it('should catch error when on a wrong route', (done) => {
+    chai.request(app).get('/yutrtydf')
+    .end((err,res) => {
+      res.should.have.status(405);
+      done();
+    });
+  });
+});
 describe('Authentication tests', () => {
   it('should be able to signup', (done) => {
     chai.request(app)
@@ -335,6 +343,16 @@ describe('Authentication tests', () => {
         done();
       });
   });
+  it('Mentor should not be able to sign in when is not found', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'johndo@gmail.com',
+      password: 'joerwanda123'
+    })
+      .end((err, res) => {
+        res.should.has.status(401);
+        done();
+      });
+  });
   it('should not be able to sign in when email is empty', (done) => {
     chai.request(app).post('/api/v1/auth/signin').send({
       email: '',
@@ -395,8 +413,18 @@ describe('Authentication tests', () => {
         done();
       });
   });
+  it('any error', (done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({
+      email: 'jordankayinamura@gmail.com',
+      passwords: 'joerwanda'
+    })
+      .end((err, res) => {
+        res.should.has.status(500);
+        done();
+      });
+  });
   it('should be able to get all mentors', (done) => {
-    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzYyMDYxN30.2-BKvHeBzDEycQGjMMhFM5N1BJeQmowtJaVT14uY6fk')
       .end((err, res) => {
         res.should.has.status(200);
         done();
@@ -409,6 +437,13 @@ describe('Authentication tests', () => {
         done();
       });
   });
+  it('should not be able to get all mentors when is mentor', (done) => {
+    chai.request(app).get('/api/v1/mentors').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1Njc3MDY5NjR9.xpIxfDhlM7sNikB2Sekx-r5cdhgVc6iCAQ9Y7UruOxo')
+      .end((err, res) => {
+        res.should.has.status(403);
+        done();
+      });
+  });
   it('should not be able to get all mentors when token is invalid', (done) => {
     chai.request(app).get('/api/v1/mentors').set('x-token','eyJhGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
       .end((err, res) => {
@@ -418,7 +453,7 @@ describe('Authentication tests', () => {
   });
   it('should be able to get a mentor', (done) => {
     const mentorId = 1;
-    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
+    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzYyMDYxN30.2-BKvHeBzDEycQGjMMhFM5N1BJeQmowtJaVT14uY6fk')
       .end((err, res) => {
         res.should.has.status(200);
         done();
@@ -442,7 +477,7 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get a mentor when id is not found', (done) => {
     const mentorId = 100;
-    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjozMTU1OTE0NjZ9.mlJf4aSpoX-TrQXto6XHWKu5LLCHrrZZsrl9GGTlwKE')
+    chai.request(app).get(`/api/v1/mentors/${mentorId}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzYyMDYxN30.2-BKvHeBzDEycQGjMMhFM5N1BJeQmowtJaVT14uY6fk')
       .end((err, res) => {
         res.should.has.status(404);
         done();
@@ -460,6 +495,16 @@ describe('Session tests', () => {
       questions: 'How to be a software developer?'
     }).end((err,res) => {
       res.should.have.status(201);
+      done();
+    })
+  }));
+  it('should not be able to create mentorship request when already exist', (done => {
+    chai.request(app).post('/api/v1/sessions').set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJrYXlpbmFtdXJhMUBnbWFpbC5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNTY2NTQwNTA5fQ.I3kmd23CdJfzjonjY2p-0G1UmKHLu2yUHwK1oUhbk30')
+    .send({
+      mentorEmail: 'johndoe@gmail.com',
+      questions: 'How to be a software developer?'
+    }).end((err,res) => {
+      res.should.have.status(409);
       done();
     })
   }));
@@ -695,7 +740,7 @@ describe('Session tests', () => {
 describe('Review Tests', () => {
  it('should be able to review session', (done => {
   const id = 3;
-   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjMxNTU2MzA0NH0.N9KiDevzI4rBJu6qW6HolNvR69zqsMX6m9NbEUbXG_0').send({
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1Njc2NTQ2OTB9.P-H5pIYBfhqT_Thr6TOk_6qCkIUgMVIlKaYZFGf-N4Q').send({
      score: 4,
      remark: 'Excellent mentor!'
    })
@@ -778,6 +823,17 @@ describe('Review Tests', () => {
    })
      .end((err, res) => {
        res.should.have.status(404);
+       done();
+     })
+ }));
+ it('should not be able to review session when session is already reviewed', (done => {
+   const id = 3;
+   chai.request(app).post(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJrYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1Njc2NTQ2OTB9.P-H5pIYBfhqT_Thr6TOk_6qCkIUgMVIlKaYZFGf-N4Q').send({
+     score: 4,
+     remark: 'Excellent mentor!'
+   })
+     .end((err, res) => {
+       res.should.have.status(409);
        done();
      })
  }));
