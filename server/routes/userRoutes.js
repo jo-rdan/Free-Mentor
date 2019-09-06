@@ -1,8 +1,8 @@
 import express from 'express';
 import validate from '../validations/userValidations';
-import userControl from '../control/user_control';
+import userControl from '../controllers/user_control';
 import auth from '../middleware/authentication';
-import sessions from '../control/sessionControl';
+import sessions from '../controllers/sessionControl';
 import sessValidate from '../validations/sessionValidations';
 import reviewValidation from '../validations/reviewValidation';
 

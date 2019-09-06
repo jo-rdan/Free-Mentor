@@ -1,6 +1,6 @@
-import sessions from '../models/sessionsReq';
-import users from '../models/users';
-import review from '../models/reviews';
+import sessions from '../data/sessionsReq';
+import users from '../data/users';
+import review from '../data/reviews';
 
 class Session {
 
@@ -9,7 +9,7 @@ class Session {
   }
 
   static findMentorByEmail(email) {
-    const foundEmail = users.mentor.find(f => f.email === email);    
+    const foundEmail = users.mentor.find(mentorObj => mentorObj.email === email);    
     if(foundEmail) {
       return foundEmail;
     } 

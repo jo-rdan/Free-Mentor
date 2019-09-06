@@ -1,9 +1,9 @@
 /* eslint-disable*/
-import session from '../classes/sessionServer';
-import sessions from '../models/sessionsReq';
-import user from '../models/users';
-import reviews from '../models/reviews';
-import sesh from '../models/sessionsReq';
+import session from '../helpers/sessionServer';
+import sessions from '../data/sessionsReq';
+import user from '../data/users';
+import reviews from '../data/reviews';
+import sesh from '../data/sessionsReq';
 class SessionController {
   static create(req, res) {
     const { mentorEmail, questions } = req.body;
@@ -17,7 +17,7 @@ class SessionController {
         menteeEmail: req.payload.email,
         status: 'pending'
       }
-      const isSessionExist = sesh.find(f => f.questions === newSession.questions);
+      const isSessionExist = sesh.find(sessionObject => sessionObject.questions === newSession.questions);
       
       if (isSessionExist) return res.status(409).send({ status: 409, error: 'This session is already created'});
       session.createSession(newSession);
@@ -37,7 +37,7 @@ class SessionController {
   }
 
   static acceptMentorship(req, res) {
-    const sessionFound = sessions.find(f => f.sessionId == req.params.id);
+    const sessionFound = sessions.find(sessionObject => sessionObject.sessionId == req.params.id);
     if (sessionFound.status === 'pending') {
       sessionFound.status = 'accepted';
       return res.status(200).send({ status: 200, data: sessionFound });
@@ -47,7 +47,7 @@ class SessionController {
     } else return res.status(401).send({ status: 401, error: 'This session request is already accepted' });
   }
   static declineMentorship(req, res) {
-    const foundSession = sessions.find(f => f.sessionId == req.params.id);
+    const foundSession = sessions.find(sessionObject => sessionObject.sessionId == req.params.id);
 
     if (foundSession.status === 'pending' || foundSession.status === 'accepted') {
       foundSession.status = 'rejected';
@@ -58,10 +58,10 @@ class SessionController {
 
   static reviewMentor(req, res) {
     const { score, remark } = req.body;
-    const isSession = sessions.find(f => f.sessionId == req.params.id);
-    const isReview = reviews.find(f => f.sessionId === isSession.sessionId);   
-    const mentee = user.mentee.find(p => p.email == isSession.menteeEmail);
-    const mentor = user.mentor.find(fp => fp.mentorId == isSession.mentorId);
+    const isSession = sessions.find(sessionObj => sessionObj.sessionId == req.params.id);
+    const isReview = reviews.find(reviewObj => reviewObj.sessionId === isSession.sessionId);   
+    const mentee = user.mentee.find(menteeObj => menteeObj.email == isSession.menteeEmail);
+    const mentor = user.mentor.find(mentorObj => mentorObj.mentorId == isSession.mentorId);
     if (isSession.status !== 'accepted') return res.status(403).send({ status: 403, error: 'This session is not accepted yet'})
     if (isReview) return res.status(409).send({ status: 409, error: 'This session is already reviewed'});
     else {

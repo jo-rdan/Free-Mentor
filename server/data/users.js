@@ -1,6 +1,6 @@
 const users = {
-  mentee: [{ 
-    menteeId: 1, 
+  mentee: [{
+    menteeId: 1,
     firstName: 'Jordan',
     lastName: 'Kayinamura',
     email: 'jordankayinamura@gmail.com',
@@ -12,7 +12,7 @@ const users = {
     isAdmin: true
   },
   {
-    menteeId: 2, 
+    menteeId: 2,
     firstName: 'Jordan',
     lastName: 'Kayinamura',
     email: 'kayinamura@gmail.com',
@@ -24,7 +24,7 @@ const users = {
     isAdmin: false
   },
   {
-    menteeId: 3, 
+    menteeId: 3,
     firstName: 'Jaden',
     lastName: 'Kayinamura',
     email: 'kayinamura1@gmail.com',
@@ -35,8 +35,8 @@ const users = {
     expertise: 'Software Engineering',
     isAdmin: false
   }
-],
-  mentor:[{ 
+  ],
+  mentor: [{
     mentorId: 1,
     firstName: 'John',
     lastName: 'Doe',
@@ -47,6 +47,19 @@ const users = {
     occupation: 'Software Developer',
     expertise: 'Software Engineering',
     isAdmin: false
-  }]
+  },
+  {
+    mentorId: 2,
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: 'jane@gmail.com',
+    password: '$2b$10$ttQnxV0Rq9lLk5tPKRzbN.aDBmx3AjSpaCkrPFgdW5r2JCj4Zr93C',
+    address: 'Wisconsin',
+    bio: 'I am a professional world-class software developer looking for showing others how it works',
+    occupation: 'Software Developer',
+    expertise: 'Software Engineering',
+    isAdmin: false
+  }
+  ]
 }
 export default users;

@@ -2,14 +2,14 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import User from '../classes/userServer';
-import users from '../models/users';
+import User from '../helpers/userServer';
+import users from '../data/users';
 
 dotenv.config();
 
 class controlUser {
   static signupUser(req,res) {
-    const { firstName, lastName, email, password, address, bio, occupation, expertise, type } = req.body;
+    const { firstName, lastName, email, password, address, bio, occupation, expertise} = req.body;
     const hashedPassword = bcrypt.hashSync(password,10);
     
     const isEmail = User.findByEmail(email);

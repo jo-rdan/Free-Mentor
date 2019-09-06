@@ -1,7 +1,7 @@
 /* eslint-disable */
-import user from '../classes/userServer';
-import users from '../models/users';
-import review from '../models/reviews';
+import user from '../helpers/userServer';
+import users from '../data/users';
+import review from '../data/reviews';
 
 class Admin {
   static changeUserToMentor(req,res) {
@@ -38,7 +38,7 @@ class Admin {
   }
 
   static deleteReview(req,res) {
-    const isExistReview = review.find(f => f.sessionId === parseInt(req.params.id));
+    const isExistReview = review.find(sessionObject => sessionObject.sessionId === parseInt(req.params.id));
     if(isExistReview) {
       const index = review.indexOf(isExistReview);
       review.splice(index,1);

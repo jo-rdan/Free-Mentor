@@ -1,5 +1,5 @@
 /* eslint-disable */
-import users from '../models/users';
+import users from '../data/users';
 
 class User {
   static create(object) {
@@ -7,15 +7,15 @@ class User {
   }
 
   static findByEmail(email) {
-    const foundUserEmail = users.mentee.find(f => f.email === email);
-    const foundMentorEmail = users.mentor.find(m => m.email === email);
+    const foundUserEmail = users.mentee.find(menteeObj => menteeObj.email === email);
+    const foundMentorEmail = users.mentor.find(mentorObj => mentorObj.email === email);
     if (foundUserEmail) return foundUserEmail;
     else if (foundMentorEmail) return foundMentorEmail;
     else return false;
   }
 
   static findById(id) {
-    const foundId = users.mentee.find(f => f.menteeId === id);
+    const foundId = users.mentee.find(menteeObj => menteeObj.menteeId === id);
     if(foundId){
       return foundId;
     } else {
@@ -23,7 +23,7 @@ class User {
     }
   }
   static findMentorById(id) {
-    const foundMentor = users.mentor.find(f => f.mentorId === id);
+    const foundMentor = users.mentor.find(mentorObj => mentorObj.mentorId === id);
     if(foundMentor){
       return foundMentor;
     } else {
