@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
+import token from './helpers/tokens';
 
 chai.use(chaiHttp);
 chai.should();
@@ -9,7 +10,7 @@ chai.should();
 describe('Admin authentication tests', () => {
   it('should be able to change user to mentor',(done) => {
     const id = 2;
-    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2NDY2NDg3fQ.3nvpBIRh3NcoIlkfhpxP7tNSdgVDmsmYEbFVRy06nGA')
+    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token',token.admin.real)
     .end((error,res) => {
       res.should.have.status(200);
       done();
@@ -17,7 +18,7 @@ describe('Admin authentication tests', () => {
   });
   it('should not be able to change to user when id is not found',(done) => {
     const id = 11;
-    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2NDY2NDg3fQ.3nvpBIRh3NcoIlkfhpxP7tNSdgVDmsmYEbFVRy06nGA')
+    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token',token.admin.real)
     .end((error,res) => {
       res.should.have.status(404);
       done();
@@ -25,7 +26,7 @@ describe('Admin authentication tests', () => {
   });
   it('Admin cannot be changed to mentor',(done) => {
     const id = 1;
-    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2NDY2NDg3fQ.3nvpBIRh3NcoIlkfhpxP7tNSdgVDmsmYEbFVRy06nGA')
+    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token',token.admin.real)
     .end((error,res) => {
       res.should.have.status(403);
       done();
@@ -33,7 +34,7 @@ describe('Admin authentication tests', () => {
   });
   it('should not be able to change to mentor when invalid token',(done) => {
     const id = 1;
-    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token', 'eyJhbciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbmtheWluYW11cmFAZ21haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNTY2NDY2NDg3fQ.3nvpBIRh3NcoIlkfhpxP7tNSdgVDmsmYEbFVRy06nGA')
+    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token',token.admin.fake)
     .end((error,res) => {
       res.should.have.status(401);
       done();
@@ -41,7 +42,7 @@ describe('Admin authentication tests', () => {
   });
   it('should not be able to change to mentor when is not admin',(done) => {
     const id = 1;
-    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvZXlyd2FuZGFAZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU2NjQ2Njg4MH0.gOTB-mQLsyyoZDjFaYYuXB9JuZT3twQjSTrxtHpPLmo')
+    chai.request(app).patch(`/api/v1/user/${id}`).set('x-token',token.mentee.real)
     .end((error,res) => {
       res.should.have.status(403);
       done();
@@ -60,7 +61,7 @@ describe('Admin authentication tests', () => {
 describe('Admin can delete a review', () => {
   it('should be able to delete review when token provided is from admin', (done) =>{
     const id = 4;
-    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzM2NDQyMn0.oahsZwdgV8-1NSQqKmiq-2tT3cWs-m0rKSFJATLtuzg')
+    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token',token.admin.real)
     .end((error, res) => {
       res.should.have.status(200);
       done();
@@ -68,7 +69,7 @@ describe('Admin can delete a review', () => {
   });
   it('should not be able to delete review when review not found', (done) =>{
     const id = 14;
-    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzM2NDQyMn0.oahsZwdgV8-1NSQqKmiq-2tT3cWs-m0rKSFJATLtuzg')
+    chai.request(app).delete(`/api/v1/sessions/${id}/review`).set('x-token',token.admin.real)
     .end((error, res) => {
       res.should.have.status(403);
       done();

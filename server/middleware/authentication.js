@@ -1,8 +1,9 @@
 /* eslint-disable */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import users from '../classes/userServer';
-import sessions from '../models/sessionsReq';
+import users from '../helpers/userServer';
+import user from '../data/users';
+import sessions from '../data/sessionsReq';
 
 dotenv.config();
 
@@ -30,8 +31,12 @@ class Authenticate {
     try {
       const tkens = req.header('x-token');
       if (tkens) {
-        req.payload = jwt.verify(tkens, process.env.secret);
-        next();
+        const payload = jwt.verify(tkens, process.env.secret);
+        const isMentee = user.mentee.find(mentee => mentee.email === payload.email);
+        if (isMentee || payload.isAdmin === 'true') {
+          req.payload = payload;
+          next();
+        } else return res.status(403).send({ status: 403, error: 'You cannot access this information'});
       } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
     } catch (error) {
       return res.status(401).send({ status: 401, error: error.message });
@@ -44,9 +49,10 @@ class Authenticate {
       if (tokens) {
         const payload = jwt.verify(tokens, process.env.secret);
         const isUser = users.findByEmail(req.body.mentorEmail);
+        const isMentor = user.mentor.find(mentor => mentor.email === payload.email);
         if (isUser) {
           if (payload.isAdmin === false) {
-            if (payload.email !== isUser.email) {
+            if (payload.email !== isUser.email && !isMentor) {
               req.payload = payload;
               next();
             } else return res.status(403).send({ status: 403, error: 'You are not allowed to create a mentorship request' });
@@ -67,7 +73,7 @@ class Authenticate {
     try {
       const x_token = req.header('x-token');
       const id = parseInt(req.params.id);
-      const sessionFound = sessions.find(f => f.sessionId === id);
+      const sessionFound = sessions.find(session => session.sessionId === id);
       if (x_token) {
         const payload = jwt.verify(x_token, process.env.secret);
         if (sessionFound) {
@@ -87,7 +93,7 @@ class Authenticate {
   static authReview(req, res, next) {
     try {
       const tok = req.header('x-token');
-      const findSession = sessions.find(p => p.sessionId == req.params.id);
+      const findSession = sessions.find(session => session.sessionId === parseInt(req.params.id));
       if (tok) {
         const data = jwt.verify(tok, process.env.secret);
         if (findSession) {

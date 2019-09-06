@@ -1,5 +1,5 @@
 import express from 'express';
-import admin from '../control/adminControl';
+import admin from '../controllers/adminController';
 import authent from '../middleware/authentication';
 
 const router = express.Router();

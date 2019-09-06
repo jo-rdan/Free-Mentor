@@ -10,9 +10,9 @@ const sessions = [
   {
     sessionId: 2,
     mentorId: 1,
-    menteeId: 3,
+    menteeId: 2,
     questions: 'How to be a businessman',
-    menteeEmail: 'kayinamura1@gmail.com',
+    menteeEmail: 'kayinamura@gmail.com',
     status: 'accepted'
   },
   {

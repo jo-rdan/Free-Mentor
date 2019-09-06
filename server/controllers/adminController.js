@@ -1,7 +1,7 @@
 /* eslint-disable */
-import user from '../classes/userServer';
-import users from '../models/users';
-import review from '../models/reviews';
+import user from '../helpers/userServer';
+import users from '../data/users';
+import review from '../data/reviews';
 
 class Admin {
   static changeUserToMentor(req,res) {
@@ -12,12 +12,14 @@ class Admin {
         if (changeUser.isAdmin === true) {
           return res.status(403).send({ status: 403 , error: 'Admin cannot be changed to mentor' });
         } else {
-          const { firstName, lastName, email, address, bio, occupation, expertise, isAdmin } = changeUser;
+          const { firstName, lastName, email, password, address, bio, occupation, expertise, isAdmin } = changeUser;
+
           const newMentor = {
             mentorId: changeUser.menteeId,
             firstName,
             lastName,
             email,
+            password,
             address,
             bio,
             occupation,
@@ -36,7 +38,7 @@ class Admin {
   }
 
   static deleteReview(req,res) {
-    const isExistReview = review.find(f => f.sessionId === parseInt(req.params.id));
+    const isExistReview = review.find(sessionObject => sessionObject.sessionId === parseInt(req.params.id));
     if(isExistReview) {
       const index = review.indexOf(isExistReview);
       review.splice(index,1);
