@@ -1,4 +1,4 @@
-/* eslint-disable*/
+/*  eslint-disable  */;
 
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
