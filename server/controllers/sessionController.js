@@ -10,7 +10,7 @@ class SessionController {
     const isMentor = session.findMentorByEmail(mentorEmail);
     if (isMentor) {
       const newSession = {
-        sessionId: sessions.length + 1,
+        sessionId: sessions.length + 1, 
         mentorId: isMentor.mentorId,
         menteeId: req.payload.id,
         questions,
