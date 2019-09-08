@@ -6,6 +6,7 @@
   "scripts": {
     "dev-start": "nodemon --exec babel-node server/app.js",
     "start": "babel-node server/app.js",
+    "db": "babel-node server/config/tables.js",
     "test": "nyc --reporter=text mocha --require @babel/register server/tests/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -36,7 +37,8 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
     "mocha-lcov-reporter": "^1.3.0",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -51,14 +51,14 @@ class Authenticate {
         const isUser = users.findByEmail(req.body.mentorEmail);
         const isMentor = user.mentor.find(mentor => mentor.email === payload.email);
         if (isUser) {
-          if (payload.isAdmin === false) {
-            if (payload.email !== isUser.email && !isMentor) {
+          if (payload.isAdmin === false) { 
+            if (!isMentor) {
               req.payload = payload;
               next();
             } else return res.status(403).send({ status: 403, error: 'You are not allowed to create a mentorship request' });
           } else return res.status(403).send({ status: 403, error: 'Admin cannot create a mentorship request' });
         } else {
-          return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+          return res.status(404).send({ status: 404, error: 'You cannot create a session request to an unknown user' });
         }
       } else {
         return res.status(401).send({ status: 401, error: 'Unauthorized user!' });
