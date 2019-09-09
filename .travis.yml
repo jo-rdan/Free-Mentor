@@ -7,7 +7,7 @@ cache:
 services: 
 - postgresql
 before_script:
- - psql -c 'CREATE DATABASE mentors;' -U jordan
+ - psql -c 'CREATE DATABASE mentors;' -U postgres
 script: 
   - npm test
 after_success: 
