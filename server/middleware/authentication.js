@@ -1,4 +1,3 @@
-/* eslint-disable */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import users from '../helpers/userServer';
@@ -32,7 +31,7 @@ class Authenticate {
       const tkens = req.header('x-token');
       if (tkens) {
         const payload = jwt.verify(tkens, process.env.secret);
-        const isMentee = user.mentee.find(mentee => mentee.email === payload.email);
+        const isMentee = user.mentee.find((mentee) => mentee.email === payload.email);
         if (isMentee || payload.isAdmin === 'true') {
           req.payload = payload;
           next();
@@ -49,7 +48,7 @@ class Authenticate {
       if (tokens) {
         const payload = jwt.verify(tokens, process.env.secret);
         const isUser = users.findByEmail(req.body.mentorEmail);
-        const isMentor = user.mentor.find(mentor => mentor.email === payload.email);
+        const isMentor = user.mentor.find((mentor) => mentor.email === payload.email);
         if (isUser) {
           if (payload.isAdmin === false) { 
             if (!isMentor) {
@@ -93,7 +92,7 @@ class Authenticate {
   static authReview(req, res, next) {
     try {
       const tok = req.header('x-token');
-      const findSession = sessions.find(session => session.sessionId === parseInt(req.params.id));
+      const findSession = sessions.find((session) => session.sessionId === parseInt(req.params.id));
       if (tok) {
         const data = jwt.verify(tok, process.env.secret);
         if (findSession) {

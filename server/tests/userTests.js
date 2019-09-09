@@ -1,22 +1,16 @@
-/* eslint-disable */
-
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import app from '../app';
 import users from './helpers/usersSignup';
 import signin from './helpers/userSignin';
 import token from './helpers/tokens';
 import sessions from './helpers/sessions';
-import session from './helpers/sessions';
 
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
 
-
-// const newUserToken = jwt.sign({ id: 3, "email": users[0].email, "isAdmin": false}, process.env.secret, {expiresIn: '1M'});
 
 describe('Catch any error', () => {
   it('should catch error when on a wrong route', (done) => {
@@ -298,171 +292,171 @@ describe('Session tests', () => {
         done();
       })
   });
-it('should not be able to create mentorship request when email is invalid', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
-    .send(sessions[2]).end((err, res) => {
-      res.should.have.status(400);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when questions is invalid', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
-    .send(sessions[3]).end((err, res) => {
-      res.should.have.status(400);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when token is not provided', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token', '')
-    .send(sessions[0]).end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when token is invalid', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
-    .send({
-      mentorEmail: 'johndoe@gmail.com',
-      questions: 'How to be a software developer?'
-    }).end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when is admin', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token',token.admin.real)
-    .send(sessions[0]).end((err, res) => {
-      res.should.have.status(403);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when is a mentor', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token',token.mentor.real)
-    .send(sessions[0]).end((err, res) => {
-      res.should.have.status(403);
-      done();
-    })
-}));
-it('should not be able to create mentorship request when user not found', (done => {
-  chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
-    .send(sessions[0]).end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should be able to accept mentorship request', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(200);
-      done();
-    })
-}));
-it('should be able to accept mentorship request when is rejected', (done => {
-  const id = 3;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(200);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when token is not provided', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token', '')
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when token is invalid', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.fake)
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when already accepted', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when is not mentor', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token',token.mentee.real)
-    .end((err, res) => {
-      res.should.have.status(403);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when session is not found', (done => {
-  const id = 109;
-  chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(404);
-      done();
-    })
-}));
-it('should be able to decline mentorship request when is pending', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(200);
-      done();
-    })
-}));
-it('should be able to decline mentorship request when is accepted', (done => {
-  const id = 2;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(200);
-      done();
-    })
-}));
-it('should not be able to decline mentorship request when token is not provided', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token', '')
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to decline mentorship request when token is invalid', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.fake)
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
-it('should not be able to decline mentorship request when already rejected', (done => {
-  const id = 2;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(401);
-      done();
-    })
-}));
+  it('should not be able to create mentorship request when email is invalid', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
+      .send(sessions[2]).end((err, res) => {
+        res.should.have.status(400);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when questions is invalid', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
+      .send(sessions[3]).end((err, res) => {
+        res.should.have.status(400);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when token is not provided', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token', '')
+      .send(sessions[0]).end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when token is invalid', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
+      .send({
+        mentorEmail: 'johndoe@gmail.com',
+        questions: 'How to be a software developer?'
+      }).end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when is admin', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token',token.admin.real)
+      .send(sessions[0]).end((err, res) => {
+        res.should.have.status(403);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when is a mentor', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token',token.mentor.real)
+      .send(sessions[0]).end((err, res) => {
+        res.should.have.status(403);
+        done();
+      })
+  }));
+  it('should not be able to create mentorship request when user not found', (done => {
+    chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
+      .send(sessions[0]).end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should be able to accept mentorship request', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should be able to accept mentorship request when is rejected', (done => {
+    const id = 3;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when token is not provided', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token', '')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when token is invalid', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.fake)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when already accepted', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when is not mentor', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token',token.mentee.real)
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when session is not found', (done => {
+    const id = 109;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      })
+  }));
+  it('should be able to decline mentorship request when is pending', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should be able to decline mentorship request when is accepted', (done => {
+    const id = 2;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should not be able to decline mentorship request when token is not provided', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token', '')
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to decline mentorship request when token is invalid', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.fake)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
+  it('should not be able to decline mentorship request when already rejected', (done => {
+    const id = 2;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      })
+  }));
 
-it('should not be able to decline mentorship request when is not mentor', (done => {
-  const id = 1;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentee.real)
-    .end((err, res) => {
-      res.should.have.status(403);
-      done();
-    })
-}));
-it('should not be able to accept mentorship request when session is not found', (done => {
-  const id = 109;
-  chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
-    .end((err, res) => {
-      res.should.have.status(404);
-      done();
-    })
-}));
+  it('should not be able to decline mentorship request when is not mentor', (done => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentee.real)
+      .end((err, res) => {
+        res.should.have.status(403);
+        done();
+      })
+  }));
+  it('should not be able to accept mentorship request when session is not found', (done => {
+    const id = 109;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      })
+  }));
 });
 
 describe('Review Tests', () => {
@@ -470,7 +464,7 @@ describe('Review Tests', () => {
     const id = 3;
     
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[4])
-    .end((err, res) => {
+      .end((err, res) => {
         res.should.have.status(200);
         done();
       })

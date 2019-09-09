@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const query = [
   {
     create: `INSERT INTO mentees(firstname,lastname,email,password,address,bio,occupation,expertise) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,

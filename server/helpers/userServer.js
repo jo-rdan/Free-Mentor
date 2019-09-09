@@ -1,4 +1,3 @@
-/* eslint-disable */
 import users from '../data/users';
 import execute from '../config/connectDb';
 import query from '../config/queries';
@@ -11,27 +10,28 @@ class User {
   static async findByEmail(email) {
     const foundUserEmail = await execute(query[0].isExist, [email]);
     const foundMentorEmail = await execute(query[0].isMentor);
-    
+
     if (foundUserEmail) return foundUserEmail;
-    else if (foundMentorEmail) return foundMentorEmail;
-    else return false;
+    if (foundMentorEmail) return foundMentorEmail;
+    return false;
   }
 
   static findById(id) {
     const foundId = users.mentee.find(menteeObj => menteeObj.menteeId === id);
-    if(foundId){
+    if (foundId) {
       return foundId;
-    } else {
-      return false;
     }
+    return false;
+
   }
+
   static findMentorById(id) {
     const foundMentor = users.mentor.find(mentorObj => mentorObj.mentorId === id);
-    if(foundMentor){
+    if(foundMentor) {
       return foundMentor;
-    } else {
-      return false;
     }
+    return false;
+
   }
 
   static getAll() {
@@ -39,4 +39,4 @@ class User {
   }
 }
 
-export default User; 
+export default User;
