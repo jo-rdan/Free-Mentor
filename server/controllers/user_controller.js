@@ -17,7 +17,7 @@ class controlUser {
     const isUserExist = await execute(query[0].isExist, [email]);
     
     if (isUserExist.length > 0) {
-      res.status(401).send({ status: 401, message: 'This email is already signed up' });
+      res.status(409).send({ status: 409, message: 'This email is already signed up' });
     } else {
       const newUser = [
       firstName,
@@ -31,7 +31,16 @@ class controlUser {
       ]
       // User.create(newUser);
       const createdUser = await execute(query[0].create, newUser);      
-      return res.status(201).send({ status: 201, message: 'User created successfully', data:{ id: createdUser[0].id, firstName: createdUser[0].firstname, lastname: createdUser[0].lastname, email: createdUser[0].email}});
+      return res.status(201).send({ status: 201, message: 'User created successfully', data:{
+         id: createdUser[0].id,
+          firstName: createdUser[0].firstname,
+           lastname: createdUser[0].lastname, 
+           email: createdUser[0].email,
+           address: createdUser[0].address,
+           bio: createdUser[0].bio,
+           occupation: createdUser[0].occupation,
+           expertise: createdUser[0].expertise
+        }});
     }
   }
   static signinUser(req,res) {

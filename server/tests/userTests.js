@@ -137,7 +137,7 @@ describe('Authentication tests', () => {
   it('should not be able to signup when email already exists', (done) => {
     chai.request(app).post('/api/v2/auth/signup').send(users[0])
       .end((err, res) => {
-        res.should.has.status(401);
+        res.should.has.status(409);
         done();
       });
   });
