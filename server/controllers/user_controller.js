@@ -4,34 +4,34 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import User from '../helpers/userServer';
 import users from '../data/users';
+import execute from '../config/connectDb';
+import query from '../config/queries';
 
 dotenv.config();
 
 class controlUser {
-  static signupUser(req,res) {
+  static async signupUser(req,res) {
     const { firstName, lastName, email, password, address, bio, occupation, expertise} = req.body;
-    const hashedPassword = bcrypt.hashSync(password,10);
+    const passwords = bcrypt.hashSync(password,10);
     
-    const isEmail = User.findByEmail(email);
-
-    if (isEmail) {
+    const isUserExist = await execute(query[0].isExist, [email]);
+    
+    if (isUserExist.length > 0) {
       res.status(401).send({ status: 401, message: 'This email is already signed up' });
     } else {
-      const newUser = {
-      menteeId: users.mentee.length + 1,
+      const newUser = [
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      passwords,
       address,
       bio,
       occupation,
       expertise,
-      isAdmin: false
-      }
-      User.create(newUser);
-      const token = jwt.sign({ id:newUser.menteeId, email:newUser.email, isAdmin:newUser.isAdmin }, process.env.secret);
-      return res.status(201).send({ status: 201, message: 'User created successfully', data: {token}});
+      ]
+      // User.create(newUser);
+      const createdUser = await execute(query[0].create, newUser);      
+      return res.status(201).send({ status: 201, message: 'User created successfully', data:{ id: createdUser[0].id, firstName: createdUser[0].firstname, lastname: createdUser[0].lastname, email: createdUser[0].email}});
     }
   }
   static signinUser(req,res) {

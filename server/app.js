@@ -7,13 +7,15 @@ import bodyparser from 'body-parser';
 
 dotenv.config();
 const app = express();
+console.log(app.get('env'));
+
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
-app.use('/api/v1/auth/', userRoute);
-app.use('/api/v1/', userRoute);
-app.use('/api/v1/', adminRoute);
+app.use('/api/v2/auth/', userRoute);
+app.use('/api/v2/', userRoute);
+app.use('/api/v2/', adminRoute);
 
 const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
