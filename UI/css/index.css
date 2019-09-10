@@ -2,6 +2,8 @@ body{
   margin: 0;
   padding: 0;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: grid;
+  min-height: 100%;
 }
 /* Nav bar starts */
 
@@ -175,7 +177,7 @@ footer{
 /* Footer ends */
 
 /* Media Queries */
-@media (min-width: 4047px){
+/* @media (min-height: 1635px){
   .logo img{
     width: 130%;
     margin-left: 50px;
@@ -219,9 +221,9 @@ footer{
   footer {
     margin-top: 490px;
   }
-}
-@media (min-width: 5464px){
-    .logo img{
+} */
+@media screen and (min-height: 1635px){
+  .logo img{
     width: 130%;
     margin-left: 50px;
   }
@@ -242,12 +244,16 @@ footer{
     font-size: 16px;
     letter-spacing: 2px;
   }
+
   .mentors h2,h3{
     font-size: 50px;
   }
+  .it-mentors{
+    padding: 0;
+  }
   .it-mentors .it{
     width: 360px;
-    height: 100px;
+    height: 800px;
     margin: 0 auto;
   }
   .it-mentors .it img{
@@ -262,10 +268,15 @@ footer{
     font-size: 22px;
   }
   footer{
-    margin-top: 1160px;
+    margin-top: 1150px;
   }
 }
-
+@media(min-height: 382px) {
+.mentors > div{
+  background: rgba(231, 231, 231, 0.418);
+  padding: 0;
+}
+}
 @media(min-width: 2560px){
   .logo img{
     width: 130%;
@@ -311,6 +322,7 @@ footer{
     font-size: 22px;
   }
 }
+
 @media (max-width:1024px){
   .mentors h2,h3{
     font-size: 30px;
