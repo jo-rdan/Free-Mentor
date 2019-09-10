@@ -12,7 +12,7 @@ const query = [
     accept: `UPDATE session SET status=accepted WHERE sessionId = $1`,
     reject: `UPDATE session SET status=rejected WHERE sessionId = $1`,
     review: `INSERT INTO review (sessionId, mentorFullName, score, menteeFullName, remark) VALUES ($1,$2,$3,$4,$5) RETURNIN *`,
-    deleteReview: `DELETE FROM review WHERE sessionId = $1`
+    deleteReview: `DELETE FROM review WHERE sessionId = $1`,
   }
 ];
 

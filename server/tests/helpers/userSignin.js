@@ -1,6 +1,6 @@
 const userSignin = [
   {
-    email: 'jordankayinamura@gmail.com',
+    email: 'jordan@gmail.com',
     password: 'joerwanda123'
   },
   {
@@ -36,7 +36,7 @@ const userSignin = [
     password: 'joerwanda'
   },
   {
-    email: 'jordankayinamura@gmail.com',
+    email: 'jordan@gmail.com',
     passwords: 'joerwanda'
 }
 ]

@@ -12,6 +12,7 @@ chai.use(chaiHttp);
 chai.should();
 
 
+
 describe('Catch any error', () => {
   it('should catch error when on a wrong route', (done) => {
     chai.request(app).get('/yutrtydf')
@@ -150,13 +151,6 @@ describe('Authentication tests', () => {
         done();
       });
   });
-  it('Mentor should be able to sign in', (done) => {
-    chai.request(app).post('/api/v2/auth/signin').send(signin[1])
-      .end((err, res) => {
-        res.should.has.status(200);
-        done();
-      });
-  });
   it('Mentor should not be able to sign in when is not found', (done) => {
     chai.request(app).post('/api/v2/auth/signin').send(signin[2])
       .end((err, res) => {
@@ -172,7 +166,7 @@ describe('Authentication tests', () => {
       });
   });
   it('should not be able to sign in when email is invalid', (done) => {
-    chai.request(app).post('/api/2/auth/signin').send(signin[4])
+    chai.request(app).post('/api/v2/auth/signin').send(signin[4])
       .end((err, res) => {
         res.should.has.status(400);
         done();
