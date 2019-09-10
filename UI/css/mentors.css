@@ -81,7 +81,7 @@ body{
 
 /* Container */
 
-.container{
+.content{
   margin: 30px;
 }
 .container > div{
@@ -179,8 +179,7 @@ footer{
 /* Footer ends */
 
 /* Media Queries */
-
-@media(min-width: 2560px){
+@media(min-width: 4047px){
   .logo img{
     width: 130%;
     margin-left: 50px;
@@ -192,9 +191,11 @@ footer{
     padding: 30px;
     font-size: 20px;
   }
+  .it-mentors{
+    height: 600px;
+  }
   .it-mentors .it{
-    width: 320px;
-    height: 500px;
+    height: 550px;
     margin: 10px auto; 
   }
   .it img{
@@ -224,6 +225,63 @@ footer{
   .mk-mentors .mk{
     width: 320px;
     height: 500px;
+    margin: 10px auto;
+  }
+  .mk img{
+    width: 99%;
+    margin: 0;
+  }
+  .mk .name{
+    font-size: 25px;
+  }
+  footer {
+    margin-top: 600px;
+  }
+}
+@media(min-width: 2560px){
+  .logo img{
+    width: 130%;
+    margin-left: 50px;
+  }
+  .links ul{
+    margin-right: 50px; 
+  }
+  .links ul li{
+    padding: 30px;
+    font-size: 20px;
+  }
+  .it-mentors .it{
+    width: 320px;
+    height: 550px;
+    margin: 10px auto; 
+  }
+  .it img{
+    width: 99%;
+    margin: 0;
+  }
+  .it .name{
+    font-size: 25px;
+  }
+  button{
+    margin-left: 111px;
+  }
+
+  .bz-mentors .bz{
+    width: 320px;
+    height: 550px;
+    margin: 10px auto;
+  }
+  .bz img{
+    width: 99%;
+    margin: 0;
+  }
+  .bz .name{
+    font-size: 25px;  
+  }
+
+  .mk-mentors .mk{
+    width: 320px;
+    height: 550px;
     margin: 10px auto;
   }
   .mk img{

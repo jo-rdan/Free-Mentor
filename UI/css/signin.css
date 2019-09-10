@@ -73,6 +73,11 @@ p a {
     font-weight: bolder;
 }
 /* Media Queries */
+@media(max-width: 675px){
+    .info-section{
+    transform: translateY(0%);
+    }
+}
 @media(min-width:2560px){
     .info-section button{
         width: 93%;
@@ -95,7 +100,7 @@ p a {
             width: 85%;
             margin: 0 auto;
             font-size: 15px;
-            transform: translateY(80%);
+            transform: translateY(10%);
         }
         .info-section button{
             width: 94%;

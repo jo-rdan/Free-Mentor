@@ -175,6 +175,96 @@ footer{
 /* Footer ends */
 
 /* Media Queries */
+@media (min-width: 4047px){
+  .logo img{
+    width: 130%;
+    margin-left: 50px;
+  }
+  .links ul{
+    margin-right: 50px; 
+  }
+  .links ul li{
+    padding: 30px;
+    font-size: 20px;
+  }
+  .header .slogan{
+    font-size: 20px;
+    letter-spacing: 4px;
+    transform: translateY(650%);
+  }
+  .header a button{
+    margin-left: 48%;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .mentors h2,h3{
+    font-size: 50px;
+  }
+  .it-mentors .it{
+    width: 360px;
+    height: 800px;
+    margin: 0 auto;
+  }
+  .it-mentors .it img{
+    width: 100%;
+    margin: 0;
+  }
+  .it-mentors .it p{
+    font-size: 19px;
+  }
+  .it-mentors .it a button{
+    margin-left: 20%;
+    font-size: 22px;
+  }
+  footer {
+    margin-top: 490px;
+  }
+}
+@media (min-width: 5464px){
+    .logo img{
+    width: 130%;
+    margin-left: 50px;
+  }
+  .links ul{
+    margin-right: 50px; 
+  }
+  .links ul li{
+    padding: 30px;
+    font-size: 20px;
+  }
+  .header .slogan{
+    font-size: 20px;
+    letter-spacing: 4px;
+    transform: translateY(650%);
+  }
+  .header a button{
+    margin-left: 48%;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+  .mentors h2,h3{
+    font-size: 50px;
+  }
+  .it-mentors .it{
+    width: 360px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  .it-mentors .it img{
+    width: 100%;
+    margin: 0;
+  }
+  .it-mentors .it p{
+    font-size: 19px;
+  }
+  .it-mentors .it a button{
+    margin-left: 20%;
+    font-size: 22px;
+  }
+  footer{
+    margin-top: 1160px;
+  }
+}
 
 @media(min-width: 2560px){
   .logo img{
@@ -199,14 +289,14 @@ footer{
     letter-spacing: 2px;
   }
   .mentors .it{
-    height: 2000px;
+    height: 20px;
   }
   .mentors h2,h3{
     font-size: 50px;
   }
   .it-mentors .it{
     width: 360px;
-    height: 536px;
+    height: 600px;
     margin: 0 auto;
   }
   .it-mentors .it img{
