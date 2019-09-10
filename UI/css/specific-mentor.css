@@ -228,6 +228,7 @@ footer{
 
 /* Media Queries */
 
+
 @media(min-width: 2560px){
   .logo img{
     width: 90%;
@@ -266,6 +267,20 @@ footer{
   }
   .pop-up,.popup {
     height: 1170px;
+  }
+}
+@media(min-width: 5464px){
+  .pop-up,.popup {
+    height: 2780px;
+  }
+  .req-form {
+    height: 450px;
+  }
+  .popup .req-form{
+    height: 500px;
+  }
+  footer{
+    margin-top: 37%;
   }
 }
 @media(max-width: 1024px){
