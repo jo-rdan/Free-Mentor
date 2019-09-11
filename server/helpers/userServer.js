@@ -3,6 +3,7 @@ import execute from '../config/connectDb';
 import query from '../config/queries';
 import encryptPass from './bcryptEncrypt';
 import response from './responses';
+import { exec } from 'child_process';
 
 class User {
   static async signupHelper(req, res, next) {
@@ -23,19 +24,24 @@ class User {
         if (verifiedPassword) {
           next();
         } else return response.onError(res, 401, 'Incorrect password');
-      } else return response.onError(res, 401,'This email is not signed up yet!');
+      } else return response.onError(res, 401, 'This email is not signed up yet!');
     } catch (error) {
       return res.status(500).send({ status: 500, error: error.message });
     }
   }
 
-  static async findByEmail(email) {
-    const foundUserEmail = await execute(query[0].isExist, [email]);
-    const foundMentorEmail = await execute(query[0].isMentor);
-
-    if (foundUserEmail) return foundUserEmail;
-    if (foundMentorEmail) return foundMentorEmail;
-    return false;
+  static async adminHelper(req, res, next) {
+    const { id } = req.params;   
+    try {
+      const isUserExist = await execute(query[0].isUser, [id]); 
+      if (isUserExist[0] && isUserExist[0].ismentee === true && isUserExist[0].isadmin === false) {
+        next();
+      }
+      else if (!isUserExist[0]) return response.onError(res, 404, 'User not found');
+      else return response.onError(res, 403, 'This user cannot be changed to mentor');
+    } catch (error) {
+      response.onError(res, 500, error.message);
+    }
   }
 
   static findById(id) {

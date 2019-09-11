@@ -7,10 +7,10 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Admin authentication tests', () => {
-  it('should be able to change user to mentor',(done) => {
+  it('should be able to change user to mentor', (done) => {
     const id = 2;
-    chai.request(app).patch(`/api/v2/user/${id}`).set('x-token',token.admin.real)
-      .end((error,res) => {
+    chai.request(app).patch(`/api/v2/user/${id}`).set('x-token', token.admin.real)
+      .end((error,res) => { 
         res.should.have.status(200);
         done();
       });

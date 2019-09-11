@@ -1,7 +1,7 @@
 const userSignin = [
   {
-    email: 'jordan@gmail.com',
-    password: 'joerwanda123'
+    email: 'jordankayinamura@gmail.com',
+    password: 'joerwanda123',
   },
   {
     email: 'johndoe@gmail.com',

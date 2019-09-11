@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 try {
   const dropTable = [
-    'DROP TABLE IF EXISTS mentees CASCADE',
+    'DROP TABLE IF EXISTS users CASCADE',
     'DROP TABLE IF EXISTS session CASCADE',
     'DROP TABLE IF EXISTS review',
   ];

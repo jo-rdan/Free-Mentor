@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 const createTable = async () => {
-  const menteeTable = `CREATE TABLE IF NOT EXISTS mentees(
+  const usersTable = `CREATE TABLE IF NOT EXISTS users(
     id SERIAL NOT NULL PRIMARY KEY,
     firstname TEXT NOT NULL,
     lastname TEXT NOT NULL,
@@ -27,7 +27,7 @@ const createTable = async () => {
   const sessions = `
   CREATE TABLE IF NOT EXISTS session(
     sessionId NUMERIC PRIMARY KEY UNIQUE,
-    mentorId INTEGER NOT NULL REFERENCES mentees(id) ON DELETE CASCADE,
+    mentorId INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     menteeId NUMERIC NOT NULL,
     questions TEXT NOT NULL,
     menteeEmail TEXT NOT NULL,
@@ -41,11 +41,23 @@ const createTable = async () => {
     score NUMERIC NOT NULL,
     menteeFullName TEXT NOT NULL,
     remark TEXT NOT NULL 
-  )`
+  )`;
 
-  await pool.query(menteeTable);
+  const dummy = [
+    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('jordan','kayinamura', 'jordankayinamura@gmail.com','$2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a', 'kigali','I am not a mentor', 'software enginering', 'information', 'true','false')`,
+    
+    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('john','doe','john.doe@gmail.com','$2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','west','I am a mentor', 'software developer','business', 'false','false')`,
+
+    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('Jordan', 'Manzi', 'jordan1@gmail.com', ' $2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','USA', 'I want to be the best', 'Actor', 'Directing', 'false', 'true')`,
+  ]
+
+  await pool.query(usersTable);
   await pool.query(sessions);
   await pool.query(reviews);
+
+  for(const dum of dummy) {
+    await pool.query(dum);
+  }
 }
 
 createTable(); 
