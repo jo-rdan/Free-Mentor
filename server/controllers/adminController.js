@@ -1,39 +1,19 @@
 import user from '../helpers/userServer';
 import users from '../data/users';
 import review from '../data/reviews';
+import responses from '../helpers/responses';
+import query from '../config/queries';
+import execute from '../config/connectDb';
 
 class Admin {
-  static changeUserToMentor(req,res) {
-    const id = parseInt(req.params.id);
-
-    const changeUser = user.findById(id);
-    if (changeUser) {
-      if (changeUser.isAdmin === true) {
-        return res.status(403).send({ status: 403 , error: 'Admin cannot be changed to mentor' });
-      } 
-      const { firstName, lastName, email, password, address, bio, occupation, expertise, isAdmin } = changeUser;
-
-      const newMentor = {
-        mentorId: changeUser.menteeId,
-        firstName,
-        lastName,
-        email,
-        password,
-        address,
-        bio,
-        occupation,
-        expertise,
-        isAdmin,
-      }
-      users.mentor.push(newMentor);
-      const index = users.mentee.indexOf(changeUser.id);
-      users.mentee.splice(index, 1);
-
-      return res.status(200).send({ status: 200, data: 'User account changed to mentor'  });
+  static async changeUserToMentor(req,res) {
+    try {
+      const id = parseInt(req.params.id);
+      const changeUser = await execute(query[0].changeToMentor, [id]);
+      responses.onSuccess(res, 200, 'User account changed to mentor');
+    } catch (error) {
       
-    } 
-    return res.status(404).send({ status: 404, error: 'User not found' });
-      
+    }
   }
 
   static deleteReview(req,res) {

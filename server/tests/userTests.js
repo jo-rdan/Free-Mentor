@@ -151,13 +151,6 @@ describe('Authentication tests', () => {
         done();
       });
   });
-  it('Mentor should not be able to sign in when is not found', (done) => {
-    chai.request(app).post('/api/v2/auth/signin').send(signin[2])
-      .end((err, res) => {
-        res.should.has.status(401);
-        done();
-      });
-  });
   it('should not be able to sign in when email is empty', (done) => {
     chai.request(app).post('/api/v2/auth/signin').send(signin[3])
       .end((err, res) => {
@@ -203,6 +196,8 @@ describe('Authentication tests', () => {
   it('any error', (done) => {
     chai.request(app).post('/api/v2/auth/signin').send(signin[9])
       .end((err, res) => {
+        console.log(res.body);
+        
         res.should.has.status(500);
         done();
       });

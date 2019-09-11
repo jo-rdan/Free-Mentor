@@ -2,15 +2,19 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 import token from './helpers/tokens';
+import execute from '../config/connectDb';
+import signup from './helpers/usersSignup';
 
 chai.use(chaiHttp);
 chai.should();
 
 describe('Admin authentication tests', () => {
-  it('should be able to change user to mentor',(done) => {
-    const id = 2;
-    chai.request(app).patch(`/api/v2/user/${id}`).set('x-token',token.admin.real)
-      .end((error,res) => {
+  it('should be able to change user to mentor', (done) => {
+    const id = 3;
+    
+    chai.request(app).patch(`/api/v2/user/${isUser[0].id}`).set('x-token', token.admin.real)
+      .end((error,res) => { 
+        console.log(signup[0]);
         res.should.have.status(200);
         done();
       });

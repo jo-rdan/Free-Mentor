@@ -2,7 +2,9 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import users from '../helpers/userServer';
 import user from '../data/users';
+import encryptToken from '../helpers/tokenEncryption';
 import sessions from '../data/sessionsReq';
+import responses from '../helpers/responses';
 
 dotenv.config();
 
@@ -11,18 +13,18 @@ class Authenticate {
     try {
       const headers = req.header('x-token');
       if (headers) {
-        const payload = jwt.verify(headers, process.env.secret);
+        const payload = encryptToken.decryptToken(headers,process.env.secret);
         if (payload.isAdmin === true) {
           req.payload = payload;
           next();
         } else {
-          return res.status(403).send({ status: 403, error: 'You are not allowed to perform this action' });
+          return responses.onError(res, 403, 'You are not allowed to perform this action');
         }
       } else {
-        return res.status(401).send({ status: 401, error: 'Access Denied' });
+        return responses.onError(res, 401, 'Unauthorized user');
       }
     } catch (error) {
-      return res.status(401).send({ status: 401, error: error.message })
+      return responses.onError(res, 401, error.message);
     }
   }
 

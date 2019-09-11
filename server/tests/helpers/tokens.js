@@ -1,16 +1,18 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import users from './usersSignup';
-import signin from '../helpers/userSignin';
-import session from './sessions';
+import signin from './userSignin';
 
-const newUserToken = jwt.sign({ id: 3, email: users[0].email, isAdmin: false }, process.env.secret, { expiresIn: '1M' });
-const newMentorToken = jwt.sign({ id: 1, email: signin[1].email, isAdmin: false }, process.env.secret, { expiresIn: '1M' });
-const newAdminToken = jwt.sign({ id: 1, email: signin[0].email, isAdmin: true }, process.env.secret, { expiresIn: '1M' });
-const newReviewToken = jwt.sign({ id: 1, email: users[19].email, isAdmin: false }, process.env.secret, { expiresIn: '1M' });
+dotenv.config();
+
+const newUserToken = jwt.sign({ id: 3, email: users[0].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
+const newMentorToken = jwt.sign({ id: 1, email: signin[1].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
+const newAdminToken = jwt.sign({ id: 1, email: signin[0].email, isAdmin: true }, process.env.secret, { expiresIn: '1h' });
+const newReviewToken = jwt.sign({ id: 1, email: users[19].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
 const tokens = {
 
   admin: {
-    real:newAdminToken,
+    real: newAdminToken,
     fake: 'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb3JkYW5rYXlpbmFtdXJhQGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTU2NzcxOTcxN30.Lh4XQGNFU4fUjrGN7jiJ6QttN5UMsdLB3sRidVg4Cxs',
   },
 
