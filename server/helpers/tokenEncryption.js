@@ -10,7 +10,7 @@ class EncryptJwt {
     const isEmail = await execute(query[0].isExist, [email]);    
     if (isEmail) {
       const payload = {id: isEmail[0].id, email: isEmail[0].email, isAdmin: isEmail[0].isadmin, isMentee: isEmail[0].ismentee };
-      const token = jwt.sign(payload, process.env.secret);
+      const token = jwt.sign(payload, process.env.secret, { expiresIn: '1h'});
       return token;
     }
   }

@@ -5,7 +5,7 @@ import execute from '../config/connectDb';
 import query from '../config/queries';
 import encryptPass from '../helpers/bcryptEncrypt';
 import encryptToken from '../helpers/tokenEncryption';
-
+import response from '../helpers/responses';
 dotenv.config();
 
 class controlUser {
@@ -25,29 +25,26 @@ class controlUser {
       expertise,
     ];
     const createdUser = await execute(query[0].create, newUser);
-    return res.status(201).send({
-      status: 201,
-      message: 'User created successfully',
-      data: {
-        id: createdUser[0].id,
-        firstName: createdUser[0].firstname,
-        lastname: createdUser[0].lastname,
-        email: createdUser[0].email,
-        address: createdUser[0].address,
-        bio: createdUser[0].bio,
-        occupation: createdUser[0].occupation,
-        expertise: createdUser[0].expertise,
-      },
-    });
+    const data = {
+      id: createdUser[0].id,
+      firstName: createdUser[0].firstname,
+      lastname: createdUser[0].lastname,
+      email: createdUser[0].email,
+      address: createdUser[0].address,
+      bio: createdUser[0].bio,
+      occupation: createdUser[0].occupation,
+      expertise: createdUser[0].expertise,
+    }
+    return response.onSuccess(res, 201, 'User created successfully', data);
 
   }
 
   static async signinUser(req, res) {
     try {
       const token = await encryptToken.encryptToken(req.body.email);
-      res.status(200).send({ status: 200, message: 'User is successfully logged in', data: { token } });
+      return response.onSuccess(res, 200, token);
     } catch (error) {
-      return res.status(500).send({ status: 500, error: error.message });
+      return response.onError(res, 500, error.message);
     }
   }
   
