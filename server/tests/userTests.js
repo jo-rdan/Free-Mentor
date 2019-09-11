@@ -195,9 +195,7 @@ describe('Authentication tests', () => {
   });
   it('any error', (done) => {
     chai.request(app).post('/api/v2/auth/signin').send(signin[9])
-      .end((err, res) => {
-        console.log(res.body);
-        
+      .end((err, res) => {        
         res.should.has.status(500);
         done();
       });
