@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const connSring = process.env.DATABASE_URL;
+const connSring = process.env.DB_URL;
 const pool = new Pool({
   connectionString: connSring,
 });

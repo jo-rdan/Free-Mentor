@@ -19,7 +19,7 @@ class Validations {
     } catch (error) {
       res.status(400).send({
         status: 400,
-        message: error.message,
+        error: error.message,
       });
     }
   };
@@ -31,7 +31,7 @@ class Validations {
       if (!passwords.test(password)) throw new Error('your password must be at least 5 characters long');
       next();
     } catch (error) {
-      res.status(400).send({ status: 400, message: error.message });
+      res.status(400).send({ status: 400, error: error.message });
     }
   };
 } 

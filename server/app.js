@@ -6,7 +6,6 @@ import index from './routes/index';
 dotenv.config();
 const app = express();
 
-
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
