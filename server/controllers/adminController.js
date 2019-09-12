@@ -1,5 +1,3 @@
-import user from '../helpers/userServer';
-import users from '../data/users';
 import review from '../data/reviews';
 import responses from '../helpers/responses';
 import query from '../config/queries';
@@ -8,11 +6,11 @@ import execute from '../config/connectDb';
 class Admin {
   static async changeUserToMentor(req,res) {
     try {
-      const id = parseInt(req.params.id);
+      const id = parseInt(req.params.id,10);
       const changeUser = await execute(query[0].changeToMentor, [id]);
-      responses.onSuccess(res, 200, 'User account changed to mentor');
+      return responses.onSuccess(res, 200, 'User account changed to mentor');
     } catch (error) {
-      
+      return responses.onError(res, 500, error.message);
     }
   }
 

@@ -4,7 +4,7 @@ const userSignin = [
     password: 'joerwanda123',
   },
   {
-    email: 'johndoe@gmail.com',
+    email: 'john.doe@gmail.com',
     password: 'joerwanda123'
   },
   {

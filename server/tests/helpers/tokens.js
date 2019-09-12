@@ -6,7 +6,7 @@ import signin from './userSignin';
 dotenv.config();
 
 const newUserToken = jwt.sign({ id: 3, email: users[0].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
-const newMentorToken = jwt.sign({ id: 1, email: signin[1].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
+const newMentorToken = jwt.sign({ id: 2, email: signin[1].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
 const newAdminToken = jwt.sign({ id: 1, email: signin[0].email, isAdmin: true }, process.env.secret, { expiresIn: '1h' });
 const newReviewToken = jwt.sign({ id: 1, email: users[19].email, isAdmin: false }, process.env.secret, { expiresIn: '1h' });
 const tokens = {

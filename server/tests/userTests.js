@@ -216,7 +216,7 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get all mentors when is mentor', (done) => {
     chai.request(app).get('/api/v2/mentors').set('x-token', token.mentor.real)
-      .end((err, res) => {
+      .end((err, res) => {        
         res.should.has.status(403);
         done();
       });
