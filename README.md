@@ -82,3 +82,8 @@ At this point, you can start the server and ensure you are still in that working
 | /api/v2/sessions/:id/reject | PATCH | mentor can reject a session request|
 | /api/v2/sessions/:id/review | POST | review a mentor after mentorship session|
 | /api/v2/sessions/:id/review | DELETE | Delete inappropriate review posted by the user|
+
+# Author
+Jordan Kayinamura <jordankayinamura@gmail.com>.
+Copyright (c) Jordan Kayinamura, 2019
+
