@@ -19,8 +19,21 @@ class Session {
     } catch (error) {
       return response.onSuccess(res, 500, error.message);
     }
-
   }  
+
+  static async acceptHelper (req, res, next) {
+    try {
+      const id = parseInt(req.params.id, 10);
+      const sessionFound = req.data[0][0];      
+      if (sessionFound.status === 'pending' || sessionFound.status === 'rejected') {
+        const acceptSession = await execute(query[1].accept, [id]);
+        req.data = [acceptSession];
+        next();
+      } else return response.onError(res, 409, 'This session is already accepted');
+    } catch (error) {
+      return response.onError(res, 500, error.message);
+    }
+  }
 }
 
 export default Session;

@@ -15,7 +15,7 @@ router.post('/signin', validate.signInValidation,userHelper.signinHelper,userCon
 router.get('/mentors', auth.authUser,userControl.getAllMentors);
 router.get('/mentors/:mentorId', auth.authUser, userHelper.getOne, userControl.getMentor);
 router.post('/sessions', sessValidate,auth.authSession,sessionHelp.sessionHelper, sessions.create);
-router.patch('/sessions/:id/accept',auth.authAcceptRequest, sessions.acceptMentorship);
+router.patch('/sessions/:id/accept', auth.authAcceptRequest, sessionHelp.acceptHelper, sessions.acceptMentorship);
 router.patch('/sessions/:id/reject',auth.authAcceptRequest, sessions.declineMentorship);
 router.post('/sessions/:id/review', reviewValidation, auth.authReview, sessions.reviewMentor);
 

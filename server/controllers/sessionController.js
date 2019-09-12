@@ -26,15 +26,13 @@ class SessionController {
     }
   }
 
-  static acceptMentorship(req, res) {
-    const sessionFound = sessions.find((sessionObject) => sessionObject.sessionId == req.params.id);
-    if (sessionFound.status === 'pending') {
-      sessionFound.status = 'accepted';
-      return res.status(200).send({ status: 200, data: sessionFound });
-    } if (sessionFound.status === 'rejected') {
-      sessionFound.status = 'accepted';
-      return res.status(200).send({ status: 200, data: sessionFound });
-    } return res.status(401).send({ status: 401, error: 'This session request is already accepted' });
+  static async acceptMentorship(req, res) {
+    try {      
+      const sessionFound = req.data[0][0];      
+      return response.onSuccess(res, 200, '', sessionFound);
+    } catch (error) {
+      return response.onError(res, 500, error.message);
+    }
   }
 
   static declineMentorship(req, res) {

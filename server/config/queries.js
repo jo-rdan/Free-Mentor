@@ -11,9 +11,10 @@ const query = [
   {
     createSession: `INSERT INTO session (mentorId, menteeId, questions, menteeEmail,status) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
     isSessionExist: `SELECT * FROM session where questions=$1 AND menteeEmail=$2`,
-    accept: `UPDATE session SET status=accepted WHERE sessionId = $1`,
-    reject: `UPDATE session SET status=rejected WHERE sessionId = $1`,
-    review: `INSERT INTO review (sessionId, mentorFullName, score, menteeFullName, remark) VALUES ($1,$2,$3,$4,$5) RETURNIN *`,
+    isSession: `SELECT * FROM session where sessionid=$1`,
+    accept: `UPDATE session SET status='accepted' WHERE sessionid = $1 RETURNING *`,
+    reject: `UPDATE session SET status='rejected' WHERE sessionId = $1 RETURNING *`,
+    review: `INSERT INTO review (sessionId, mentorFullName, score, menteeFullName, remark) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
     deleteReview: `DELETE FROM review WHERE sessionId = $1`,
   }
 ];
