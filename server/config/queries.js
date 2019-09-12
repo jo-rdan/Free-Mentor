@@ -9,7 +9,8 @@ const query = [
     getAllMentors: `SELECT firstname, lastname, email, address, bio, occupation, expertise FROM users WHERE ismentee=false AND isadmin=false`,
   },
   {
-    createSession: `INSERT INTO session (sessionId, mentorId, menteeId, questions, menteeEmail,status) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
+    createSession: `INSERT INTO session (mentorId, menteeId, questions, menteeEmail,status) VALUES ($1,$2,$3,$4,$5) RETURNING *`,
+    isSessionExist: `SELECT * FROM session where questions=$1 AND menteeEmail=$2`,
     accept: `UPDATE session SET status=accepted WHERE sessionId = $1`,
     reject: `UPDATE session SET status=rejected WHERE sessionId = $1`,
     review: `INSERT INTO review (sessionId, mentorFullName, score, menteeFullName, remark) VALUES ($1,$2,$3,$4,$5) RETURNIN *`,

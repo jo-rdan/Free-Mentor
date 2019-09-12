@@ -305,6 +305,7 @@ describe('Session tests', () => {
         mentorEmail: 'johndoe@gmail.com',
         questions: 'How to be a software developer?'
       }).end((err, res) => {
+        
         res.should.have.status(401);
         done();
       })
@@ -326,6 +327,8 @@ describe('Session tests', () => {
   it('should not be able to create mentorship request when user not found', (done => {
     chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
       .send(sessions[0]).end((err, res) => {
+        
+        
         res.should.have.status(401);
         done();
       })

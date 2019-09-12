@@ -26,7 +26,7 @@ const createTable = async () => {
   
   const sessions = `
   CREATE TABLE IF NOT EXISTS session(
-    sessionId NUMERIC PRIMARY KEY UNIQUE,
+    sessionId SERIAL PRIMARY KEY UNIQUE,
     mentorId INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     menteeId NUMERIC NOT NULL,
     questions TEXT NOT NULL,
@@ -40,7 +40,7 @@ const createTable = async () => {
     mentorFullName TEXT NOT NULL,
     score NUMERIC NOT NULL,
     menteeFullName TEXT NOT NULL,
-    remark TEXT NOT NULL 
+    remark TEXT NOT NULL
   )`;
 
   const dummy = [
@@ -48,7 +48,7 @@ const createTable = async () => {
     
     `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('john','doe','john.doe@gmail.com','$2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','west','I am a mentor', 'software developer','business', 'false','false')`,
 
-    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('Jane', 'Kamanzi', 'janekam@gmail.com', ' $2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','USA', 'I want to be the best', 'Actor', 'Directing', 'false', 'true')`,
+    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('Jane', 'Kamanzi', 'janekam@gmail.com', ' $2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','USA', 'I want to be the best', 'Actor', 'Directing', 'false', 'true')`
   ]
 
   await pool.query(usersTable);

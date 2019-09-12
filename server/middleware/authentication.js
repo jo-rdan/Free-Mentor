@@ -15,7 +15,7 @@ class Authenticate {
     try {
       const headers = req.header('x-token');
       if (headers) {
-        const payload = encryptToken.decryptToken(headers,process.env.secret);
+        const payload = encryptToken.decryptToken(headers, process.env.secret);
         if (payload.isAdmin === true) {
           req.payload = payload;
           next();
@@ -35,7 +35,7 @@ class Authenticate {
       const tkens = req.header('x-token');
       if (tkens) {
         const payload = encryptToken.decryptToken(tkens, process.env.secret);
-        const isMentee = await execute(query[0].isExist, [payload.email]);        
+        const isMentee = await execute(query[0].isExist, [payload.email]);
         if (isMentee[0].ismentee === true || payload.isAdmin === true) {
           req.payload = payload;
           next();
@@ -46,29 +46,23 @@ class Authenticate {
     }
   }
 
-  static authSession(req, res, next) {
+  static async authSession(req, res, next) {
     try {
       const tokens = req.header('x-token');
       if (tokens) {
-        const payload = jwt.verify(tokens, process.env.secret);
-        const isUser = users.findByEmail(req.body.mentorEmail);
-        const isMentor = user.mentor.find((mentor) => mentor.email === payload.email);
-        if (isUser) {
-          if (payload.isAdmin === false) { 
-            if (!isMentor) {
-              req.payload = payload;
-              next();
-            } else return res.status(403).send({ status: 403, error: 'You are not allowed to create a mentorship request' });
-          } else return res.status(403).send({ status: 403, error: 'Admin cannot create a mentorship request' });
-        } else {
-          return res.status(404).send({ status: 404, error: 'You cannot create a session request to an unknown user' });
+        const payload = await encryptToken.decryptToken(tokens, process.env.secret);
+        const isUser = await execute(query[0].isExist, [payload.email]);  
+             
+        if (isUser[0].isadmin === false && isUser[0] && isUser[0].ismentee === true ) {
+          req.payload = payload;
+          next();
         }
-      } else {
-        return res.status(401).send({ status: 401, error: 'Unauthorized user!' });
+        else return responses.onError(res, 403, 'You are not allowed to create mentorship request');
       }
+      else return responses.onError(res, 401, 'Unauthorized user');
 
     } catch (error) {
-      return res.status(401).send({ status: 401, error: error.message });
+      return responses.onError(res, 401, error.message);
     }
   }
 

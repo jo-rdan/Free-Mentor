@@ -1,6 +1,6 @@
 const session = [
   {
-    mentorEmail: 'jane@gmail.com',
+    mentorEmail: 'john.doe@gmail.com',
     questions: 'How to be a software developer?'
   },
   {
