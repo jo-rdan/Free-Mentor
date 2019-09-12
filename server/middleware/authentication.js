@@ -66,22 +66,22 @@ class Authenticate {
     }
   }
 
-  static authAcceptRequest(req, res, next) {
+  static async authAcceptRequest(req, res, next) {
     try {
-      const x_token = req.header('x-token');
-      const id = parseInt(req.params.id);
-      const sessionFound = sessions.find(session => session.sessionId === id);
-      if (x_token) {
-        const payload = jwt.verify(x_token, process.env.secret);
-        if (sessionFound) {
-          if (payload.id === sessionFound.mentorId) {
-            req.payload = payload;
+      const headers = req.header('x-token');
+      const id = parseInt(req.params.id,10);
+      const sessionFound = await execute(query[1].isSession, [id]);
+      if (headers) {
+        const payload = encryptToken.decryptToken(headers, process.env.secret);                
+        if (sessionFound[0]) {
+          if (payload.id === sessionFound[0].mentorid) {
+            req.data = [sessionFound];
             next();
           } else {
             return res.status(403).send({ status: 403, error: 'You cannot accept or reject this request' });
           }
         } else return res.status(404).send({ status: 404, error: 'session request not found' });
-      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+      } else return responses.onError(res, 401, 'Unauthorized user'); 
     } catch (error) {
       return res.status(401).send({ status: 401, error: error.message });
     }

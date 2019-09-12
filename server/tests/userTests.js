@@ -369,14 +369,14 @@ describe('Session tests', () => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(409);
         done();
       })
   }));
   it('should not be able to accept mentorship request when is not mentor', (done => {
     const id = 1;
-    chai.request(app).patch(`/api/v1/sessions/${id}/accept`).set('x-token',token.mentee.real)
-      .end((err, res) => {
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentee.real)
+      .end((err, res) => {        
         res.should.have.status(403);
         done();
       })
