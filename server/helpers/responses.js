@@ -5,7 +5,7 @@ class Responses {
 
   static onSuccess(res, status, message, data) {    
     if (data && message) return res.status(status).send({ status, message, data });
-    if ( data && !message) return res.status(status).send({ status, data });
+    if (message === '') return res.status(status).send({ status, data });
     if (!data && message) return res.status(status).send({ status, message });
   }
 }

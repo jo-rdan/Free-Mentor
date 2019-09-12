@@ -44,26 +44,14 @@ class User {
     }
   }
 
-  static findById(id) {
-    const foundId = users.mentee.find(menteeObj => menteeObj.menteeId === id);
-    if (foundId) {
-      return foundId;
+  static async getOne(req, res, next) {
+    const id = parseInt(req.params.mentorId, 10);
+    const mentor = await execute(query[0].getOne, [id]);
+    if (mentor[0]) {
+      req.data = [mentor];
+      next();
     }
-    return false;
-
-  }
-
-  static findMentorById(id) {
-    const foundMentor = users.mentor.find(mentorObj => mentorObj.mentorId === id);
-    if(foundMentor) {
-      return foundMentor;
-    }
-    return false;
-
-  }
-
-  static getAll() {
-    return users.mentor;
+    else response.onError(res, 404, 'User not found');
   }
 }
 

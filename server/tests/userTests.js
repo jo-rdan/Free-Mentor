@@ -223,14 +223,13 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get all mentors when token is invalid', (done) => {
     chai.request(app).get('/api/v2/mentors').set('x-token', token.mentee.fake)
-      .end((err, res) => {
+      .end((err, res) => {        
         res.should.has.status(401);
         done();
       });
   });
   it('should be able to get a mentor', (done) => {
-    const mentorId = 1;
-    chai.request(app).get(`/api/v2/mentors/${mentorId}`).set('x-token', token.mentee.real)
+    chai.request(app).get(`/api/v2/mentors/${2}`).set('x-token', token.mentee.real)
       .end((err, res) => {
         res.should.has.status(200);
         done();
@@ -246,7 +245,7 @@ describe('Authentication tests', () => {
   });
   it('should not be able to get a mentor when token is invalid', (done) => {
     const mentorId = 1;
-    chai.request(app).get(`/api/v2mentors/${mentorId}`).set('x-token', token.mentee.fake)
+    chai.request(app).get(`/api/v2/mentors/${mentorId}`).set('x-token', token.mentee.fake)
       .end((err, res) => {
         res.should.has.status(401);
         done();

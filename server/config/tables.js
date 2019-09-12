@@ -48,7 +48,7 @@ const createTable = async () => {
     
     `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('john','doe','john.doe@gmail.com','$2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','west','I am a mentor', 'software developer','business', 'false','false')`,
 
-    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('Jordan', 'Manzi', 'jordan1@gmail.com', ' $2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','USA', 'I want to be the best', 'Actor', 'Directing', 'false', 'false')`,
+    `INSERT INTO users(firstname, lastname, email, password, address, bio, occupation, expertise, isadmin, ismentee) VALUES('Jane', 'Kamanzi', 'janekam@gmail.com', ' $2b$10$dOeOInD3VRzVB2R6hE9qiuFCTcOVRcY4vGR7e3aZPusNdAi92ST3a','USA', 'I want to be the best', 'Actor', 'Directing', 'false', 'true')`,
   ]
 
   await pool.query(usersTable);
