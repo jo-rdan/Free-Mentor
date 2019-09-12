@@ -3,6 +3,7 @@ const query = [
     create: `INSERT INTO users(firstname,lastname,email,password,address,bio,occupation,expertise) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
     isUser: `SELECT * FROM users WHERE id=$1`,
     isExist: `SELECT * FROM users WHERE email=$1`,
+    isMentorEmail: `SELECT * FROM users WHERE ismentee=false AND isadmin=false AND email=$1`,
     isAdmin: `SELECT * FROM users WHERE isadmin=true AND ismentee=false`,
     changeToMentor: `UPDATE users SET ismentee=false WHERE id= $1 RETURNING *`,
     getOne: `SELECT firstname, lastname, email, address, bio, occupation, expertise FROM users WHERE ismentee=false AND isadmin=false AND id = $1`,
