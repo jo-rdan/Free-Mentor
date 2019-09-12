@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import users from '../helpers/userServer';
 import user from '../data/users';
 import encryptToken from '../helpers/tokenEncryption';
-import sessions from '../data/sessionsReq';
+import sessions from '../data/sessionsReq'; 
 import responses from '../helpers/responses';
 import execute from '../config/connectDb';
 import query from '../config/queries';
@@ -78,12 +78,12 @@ class Authenticate {
             req.data = [sessionFound];
             next();
           } else {
-            return res.status(403).send({ status: 403, error: 'You cannot accept or reject this request' });
+            return responses.onError(res, 403, 'You cannot accept or reject this request');
           }
-        } else return res.status(404).send({ status: 404, error: 'session request not found' });
+        } else return responses.onError(res, 404, 'Session not found');
       } else return responses.onError(res, 401, 'Unauthorized user'); 
     } catch (error) {
-      return res.status(401).send({ status: 401, error: error.message });
+      return responses.onError(res, 401, error.message);
     }
   }
 

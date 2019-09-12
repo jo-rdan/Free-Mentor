@@ -36,13 +36,12 @@ class SessionController {
   }
 
   static declineMentorship(req, res) {
-    const foundSession = sessions.find((sessionObject) => sessionObject.sessionId == req.params.id);
-
-    if (foundSession.status === 'pending' || foundSession.status === 'accepted') {
-      foundSession.status = 'rejected';
-      return res.status(200).send({ status: 200, data: foundSession });
+    try {
+      const session = req.data[0][0];
+      return response.onSuccess(res, 200, '', session);
+    } catch (error) {
+      return response.onError(res, 500, error.message);
     }
-    return res.status(401).send({ status: 401, error: 'This session is already rejected' });
   }
 
   static reviewMentor(req, res) {

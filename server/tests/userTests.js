@@ -6,12 +6,13 @@ import users from './helpers/usersSignup';
 import signin from './helpers/userSignin';
 import token from './helpers/tokens';
 import sessions from './helpers/sessions';
+import session from './helpers/sessions';
 
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
 
-
+let id = 0;
 
 describe('Catch any error', () => {
   it('should catch error when on a wrong route', (done) => {
@@ -278,28 +279,28 @@ describe('Session tests', () => {
         done();
       })
   });
-  it('should not be able to create mentorship request when email is invalid', (done => {
+  it('should not be able to create mentorship request when email is invalid', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
       .send(sessions[2]).end((err, res) => {
         res.should.have.status(400);
         done();
       })
   }));
-  it('should not be able to create mentorship request when questions is invalid', (done => {
+  it('should not be able to create mentorship request when questions is invalid', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token', token.mentee.real)
       .send(sessions[3]).end((err, res) => {
         res.should.have.status(400);
         done();
       })
   }));
-  it('should not be able to create mentorship request when token is not provided', (done => {
+  it('should not be able to create mentorship request when token is not provided', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token', '')
       .send(sessions[0]).end((err, res) => {
         res.should.have.status(401);
         done();
       })
   }));
-  it('should not be able to create mentorship request when token is invalid', (done => {
+  it('should not be able to create mentorship request when token is invalid', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
       .send({
         mentorEmail: 'johndoe@gmail.com',
@@ -310,21 +311,21 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to create mentorship request when is admin', (done => {
+  it('should not be able to create mentorship request when is admin', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token',token.admin.real)
       .send(sessions[0]).end((err, res) => {
         res.should.have.status(403);
         done();
       })
   }));
-  it('should not be able to create mentorship request when is a mentor', (done => {
+  it('should not be able to create mentorship request when is a mentor', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token',token.mentor.real)
       .send(sessions[0]).end((err, res) => {
         res.should.have.status(403);
         done();
       })
   }));
-  it('should not be able to create mentorship request when user not found', (done => {
+  it('should not be able to create mentorship request when user not found', ((done) => {
     chai.request(app).post('/api/v2/sessions').set('x-token',token.mentee.fake)
       .send(sessions[0]).end((err, res) => {
         
@@ -333,7 +334,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should be able to accept mentorship request', (done => {
+  it('should be able to accept mentorship request', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
       .end((err, res) => {
@@ -341,15 +342,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should be able to accept mentorship request when is rejected', (done => {
-    const id = 3;
-    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      })
-  }));
-  it('should not be able to accept mentorship request when token is not provided', (done => {
+  it('should not be able to accept mentorship request when token is not provided', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token', '')
       .end((err, res) => {
@@ -357,7 +350,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to accept mentorship request when token is invalid', (done => {
+  it('should not be able to accept mentorship request when token is invalid', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.fake)
       .end((err, res) => {
@@ -365,7 +358,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to accept mentorship request when already accepted', (done => {
+  it('should not be able to accept mentorship request when already accepted', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
       .end((err, res) => {
@@ -373,7 +366,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to accept mentorship request when is not mentor', (done => {
+  it('should not be able to accept mentorship request when is not mentor', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentee.real)
       .end((err, res) => {        
@@ -381,7 +374,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to accept mentorship request when session is not found', (done => {
+  it('should not be able to accept mentorship request when session is not found', ((done) => {
     const id = 109;
     chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
       .end((err, res) => {
@@ -389,7 +382,23 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should be able to decline mentorship request when is pending', (done => {
+  it('should be able to decline mentorship request when is pending', ((done) => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
+      .end((err, res) => {        
+        res.should.have.status(200);
+        done();
+      })
+  }));
+    it('should be able to accept mentorship request when is rejected', ((done) => {
+    const id = 1;
+    chai.request(app).patch(`/api/v2/sessions/${id}/accept`).set('x-token',token.mentor.real)
+      .end((err, res) => {        
+        res.should.have.status(200);
+        done();
+      })
+  }));
+  it('should be able to decline mentorship request when is accepted', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
       .end((err, res) => {
@@ -397,15 +406,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should be able to decline mentorship request when is accepted', (done => {
-    const id = 2;
-    chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      })
-  }));
-  it('should not be able to decline mentorship request when token is not provided', (done => {
+  it('should not be able to decline mentorship request when token is not provided', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token', '')
       .end((err, res) => {
@@ -413,7 +414,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to decline mentorship request when token is invalid', (done => {
+  it('should not be able to decline mentorship request when token is invalid', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.fake)
       .end((err, res) => {
@@ -421,16 +422,16 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to decline mentorship request when already rejected', (done => {
-    const id = 2;
+  it('should not be able to decline mentorship request when already rejected', ((done) => {
+    const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
       .end((err, res) => {
-        res.should.have.status(401);
+        res.should.have.status(409);
         done();
       })
   }));
 
-  it('should not be able to decline mentorship request when is not mentor', (done => {
+  it('should not be able to decline mentorship request when is not mentor', ((done) => {
     const id = 1;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentee.real)
       .end((err, res) => {
@@ -438,7 +439,7 @@ describe('Session tests', () => {
         done();
       })
   }));
-  it('should not be able to accept mentorship request when session is not found', (done => {
+  it('should not be able to accept mentorship request when session is not found', ((done) => {
     const id = 109;
     chai.request(app).patch(`/api/v2/sessions/${id}/reject`).set('x-token',token.mentor.real)
       .end((err, res) => {
@@ -449,7 +450,7 @@ describe('Session tests', () => {
 });
 
 describe('Review Tests', () => {
-  it('should be able to review session', (done => {
+  it('should be able to review session', ((done) => {
     const id = 3;
     
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[4])
@@ -458,7 +459,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when score is less than 1', (done => {
+  it('should not be able to review session when score is less than 1', ((done) => {
     const id = 4;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[5])
       .end((err, res) => {
@@ -466,7 +467,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when score is greater than 5', (done => {
+  it('should not be able to review session when score is greater than 5', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[6])
       .end((err, res) => {
@@ -474,7 +475,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when remark is empty', (done => {
+  it('should not be able to review session when remark is empty', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[8])
       .end((err, res) => {
@@ -482,7 +483,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when remark is invalid', (done => {
+  it('should not be able to review session when remark is invalid', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[9])
       .end((err, res) => {
@@ -490,7 +491,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when token not provided', (done => {
+  it('should not be able to review session when token not provided', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token', '').send(sessions[4])
       .end((err, res) => {
@@ -498,7 +499,7 @@ describe('Review Tests', () => {
         done();
       });
   }));
-  it('should not be able to review session when token is invalid', (done => {
+  it('should not be able to review session when token is invalid', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.mentee.fake).send(sessions[4])
       .end((err, res) => {
@@ -506,7 +507,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when session not found', (done => {
+  it('should not be able to review session when session not found', ((done) => {
     const id = 19;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[4])
       .end((err, res) => {
@@ -514,7 +515,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when session is already reviewed', (done => {
+  it('should not be able to review session when session is already reviewed', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[4])
       .end((err, res) => {
@@ -522,7 +523,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when token is not from the user who created the session', (done => {
+  it('should not be able to review session when token is not from the user who created the session', ((done) => {
     const id = 3;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.admin.real).send(sessions[4])
       .end((err, res) => {
@@ -530,7 +531,7 @@ describe('Review Tests', () => {
         done();
       })
   }));
-  it('should not be able to review session when the session is not accepted yet', (done => {
+  it('should not be able to review session when the session is not accepted yet', ((done) => {
     const id = 1;
     chai.request(app).post(`/api/v2/sessions/${id}/review`).set('x-token',token.review.real).send(sessions[4])
       .end((err, res) => {

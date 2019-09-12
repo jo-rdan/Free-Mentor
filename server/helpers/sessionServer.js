@@ -6,10 +6,10 @@ class Session {
   static async sessionHelper (req, res, next) {
     try {
       const { mentorEmail, questions } = req.body;
-      const isMentor = await execute(query[0].isExist, [mentorEmail]);
+      const isMentor = await execute(query[0].isMentorEmail, [mentorEmail]);      
       const isSession = await execute(query[1].isSessionExist, [questions, req.payload.email]);
       if(!isMentor[0]) {
-        return response.onError(res, 404, 'User not exist');
+        return response.onError(res, 403, 'You cannot create a session with this user');
       }      
 
       if (isSession.length === 0) {
