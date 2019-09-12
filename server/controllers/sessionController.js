@@ -1,38 +1,29 @@
 import session from '../helpers/sessionServer';
 import user from '../data/users';
-import reviews from '../data/reviews';
+import reviews from '../data/reviews'; 
 import sessions from '../data/sessionsReq';
+import query from '../config/queries';
+import execute from '../config/connectDb';
+import response from '../helpers/responses';
 
 class SessionController {
-  static create(req, res) {
-    const { mentorEmail, questions } = req.body;
-    const isMentor = session.findMentorByEmail(mentorEmail);
-    if (isMentor) {
+  static async create(req, res) {
+    try {
+      const { questions } = req.body;
+      const { id } = req.data[0][0];
       const newSession = {
-        sessionId: sessions.length + 1,
-        mentorId: isMentor.mentorId,
+        mentorId: id,
         menteeId: req.payload.id,
         questions,
         menteeEmail: req.payload.email,
         status: 'pending',
       };
-      const isSessionExist = session.find((sessionObject) => sessionObject.questions === newSession.questions);
-
-      if (isSessionExist) return res.status(409).send({ status: 409, error: 'This session is already created' });
-      session.createSession(newSession);
-      return res.status(201).send({
-        status: 201,
-        data: {
-          sessionId: newSession.sessionId,
-          mentorId: newSession.mentorId,
-          menteeId: newSession.menteeId,
-          questions,
-          menteeEmail: newSession.menteeEmail,
-          status: newSession.status,
-        },
-      });
+      const sessionCreated = await execute(query[1].createSession, [newSession.mentorId, newSession.menteeId, newSession.questions, newSession.menteeEmail, newSession.status,]);
+      
+      return response.onSuccess(res, 201, '', sessionCreated);
+    } catch (error) {
+      return response.onError(res, 500, error.message);
     }
-    return res.status(401).send({ status: 401, error: 'Unauthorized user' });
   }
 
   static acceptMentorship(req, res) {

@@ -3,7 +3,6 @@ import execute from '../config/connectDb';
 import query from '../config/queries';
 import encryptPass from './bcryptEncrypt';
 import response from './responses';
-import { exec } from 'child_process';
 
 class User {
   static async signupHelper(req, res, next) {

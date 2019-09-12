@@ -1,24 +1,26 @@
-import sessions from '../data/sessionsReq';
-import users from '../data/users';
-import review from '../data/reviews';
+import execute from '../config/connectDb';
+import query from '../config/queries';
+import response from './responses';
 
 class Session {
+  static async sessionHelper (req, res, next) {
+    try {
+      const { mentorEmail, questions } = req.body;
+      const isMentor = await execute(query[0].isExist, [mentorEmail]);
+      const isSession = await execute(query[1].isSessionExist, [questions, req.payload.email]);
+      if(!isMentor[0]) {
+        return response.onError(res, 404, 'User not exist');
+      }      
 
-  static createSession(object) {
-    sessions.push(object);
-  }
+      if (isSession.length === 0) {
+        req.data = [isMentor];
+        next();
+      } else response.onError(res, 409, 'This session is already created');
+    } catch (error) {
+      return response.onSuccess(res, 500, error.message);
+    }
 
-  static findMentorByEmail(email) {
-    const foundEmail = users.mentor.find(mentorObj => mentorObj.email === email);    
-    if(foundEmail) {
-      return foundEmail;
-    } 
-    return false;
-  }
-
-  static createReview(object) {
-    review.push(object);
-  }
+  }  
 }
 
 export default Session;
