@@ -6,6 +6,7 @@ import query from '../config/queries';
 import encryptPass from '../helpers/bcryptEncrypt';
 import encryptToken from '../helpers/tokenEncryption';
 import response from '../helpers/responses';
+
 dotenv.config();
 
 class controlUser {
@@ -50,23 +51,16 @@ class controlUser {
   
   static async getAllMentors(req, res) {
     const getMentors = await execute(query[0].getAllMentors);   
-    return response.onSuccess(res, 200, getMentors);
+    return response.onSuccess(res, 200, '', getMentors);
   }
 
-  static getMentor(req, res) {
-    const id = parseInt(req.params.mentorId,10);
-    const mentor = User.findMentorById(id);
-    if (mentor) {
-      const {
-        mentorId, firstName, lastName, email, address, bio, occupation, expertise,
-      } = mentor;
-      const mentorToBe = {
-        mentorId, firstName, lastName, email, address, bio, occupation, expertise,
-      };
-      return res.status(200).send({ status: 200, data: mentorToBe });
+  static async getMentor(req, res) {
+    try {
+      const mentorData = req.data[0][0];     
+      return response.onSuccess(res, 200, '', mentorData);
+    } catch (error) {
+      return response.onError(res, 500, error.message);
     }
-    return res.status(404).send({ status: 404, error: 'User not found' });
-
   }
 
 }

@@ -15,14 +15,6 @@ describe('Admin authentication tests', () => {
         done();
       });
   });
-  it('should catch error', (done) => {
-    const id = 3;
-    chai.request(app).patch('/api/v2/user/').set('x-token', token.admin.real)
-      .end((error, res) => {
-        res.should.have.status(500);
-        done();
-      });
-  });
   it('should not be able to change to user when id is not found', (done) => {
     const id = 11;
     chai.request(app).patch(`/api/v2/user/${id}`).set('x-token', token.admin.real)

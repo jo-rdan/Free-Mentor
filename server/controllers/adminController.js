@@ -5,13 +5,9 @@ import execute from '../config/connectDb';
 
 class Admin {
   static async changeUserToMentor(req,res) {
-    try {
-      const id = parseInt(req.params.id,10);
-      const changeUser = await execute(query[0].changeToMentor, [id]);
-      return responses.onSuccess(res, 200, 'User account changed to mentor');
-    } catch (error) {
-      return responses.onError(res, 500, error.message);
-    }
+    const id = parseInt(req.params.id,10);
+    const changeUser = await execute(query[0].changeToMentor, [id]);
+    return responses.onSuccess(res, 200, 'User account changed to mentor');  
   }
 
   static deleteReview(req,res) {
