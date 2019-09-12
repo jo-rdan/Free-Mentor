@@ -6,7 +6,7 @@ const query = [
     isMentor: `SELECT * FROM users WHERE ismentee=false AND isadmin=false`,
     isAdmin: `SELECT * FROM users WHERE isadmin=true AND ismentee=false`,
     changeToMentor: `UPDATE users SET ismentee=false WHERE id= $1 RETURNING *`,
-    getAllMentors: `SELECT id,firstname,lastname,email,address,bio,occupation,expertise FROM users WHERE ismentee = false`,
+    getAllMentors: `SELECT firstname, lastname, email, address, bio, occupation, expertise FROM users WHERE ismentee=false AND isadmin=false`,
     getAMentor: `SELECT id,firstname,lastname,email,address,bio,occupation,expertise FROM users WHERE ismentee = false AND id=$1`,
   },
   {

@@ -5,6 +5,8 @@ import user from '../data/users';
 import encryptToken from '../helpers/tokenEncryption';
 import sessions from '../data/sessionsReq';
 import responses from '../helpers/responses';
+import execute from '../config/connectDb';
+import query from '../config/queries';
 
 dotenv.config();
 
@@ -28,19 +30,19 @@ class Authenticate {
     }
   }
 
-  static authUser(req, res, next) {
+  static async authUser(req, res, next) {
     try {
       const tkens = req.header('x-token');
       if (tkens) {
-        const payload = jwt.verify(tkens, process.env.secret);
-        const isMentee = user.mentee.find((mentee) => mentee.email === payload.email);
-        if (isMentee || payload.isAdmin === 'true') {
+        const payload = encryptToken.decryptToken(tkens, process.env.secret);
+        const isMentee = await execute(query[0].isExist, [payload.email]);        
+        if (isMentee[0].ismentee === true || payload.isAdmin === true) {
           req.payload = payload;
           next();
-        } else return res.status(403).send({ status: 403, error: 'You cannot access this information'});
-      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+        } else return responses.onError(res, 403, 'You cannot access this information');
+      } else return responses.onError(res, 401, 'Unauthorized user');
     } catch (error) {
-      return res.status(401).send({ status: 401, error: error.message });
+      return responses.onError(res, 401, error.message);
     }
   }
 

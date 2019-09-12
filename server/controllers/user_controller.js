@@ -48,26 +48,9 @@ class controlUser {
     }
   }
   
-  static getAllMentors(req, res) {
-    const mentors = User.getAll();
-    const mentorsToBeListed = [];
-    mentors.forEach((mentorObj) => {
-      const {
-        mentorId, firstName, lastName, email, address, bio, occupation, expertise,
-      } = mentorObj;
-      const mentorsToBe = {
-        mentorId,
-        firstName,
-        lastName,
-        email,
-        address,
-        bio,
-        occupation,
-        expertise,
-      };
-      mentorsToBeListed.push(mentorsToBe);
-    });
-    return res.status(200).send({ status: 200, data: mentorsToBeListed });
+  static async getAllMentors(req, res) {
+    const getMentors = await execute(query[0].getAllMentors);   
+    return response.onSuccess(res, 200, getMentors);
   }
 
   static getMentor(req, res) {
