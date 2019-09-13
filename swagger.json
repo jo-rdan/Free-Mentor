@@ -1,0 +1,452 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Free Mentors",
+    "description": "Free Mentor",
+    "contact": {}
+  },
+  "host": "we-mentors.herokuapp.com",
+  "basePath": "/api/v2",
+  "tags": [
+    {
+      "name": "users",
+      "description": "signup,login"
+    },
+    {
+      "name": "Mentors",
+      "description": "view specific mentor, view all mentors"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "description": "Create new user",
+        "summary": "sign Up",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "AuthSignupPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "firstName",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "lastName",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "bio",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "occupation",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "expertise",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "description": "Login user",
+        "summary": "login",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "AuthSigninPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mentors": {
+      "get": {
+        "description": "Get all mentors",
+        "summary": "Get All mentors",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "MentorsGet",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mentors/1": {
+      "get": {
+        "description": "Get specific mentor",
+        "summary": "Get One Mentor",
+        "tags": [
+          "Misc"
+        ],
+        "operationId": "Mentors1Get",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The response",
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "integer"
+                },
+                "data": {
+                  "$ref": "#/definitions/schemes/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "signin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "signup": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "bio": {
+            "type": "string"
+          },
+          "occupation": {
+            "type": "string"
+          },
+          "expertise": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "sessions": {
+        "type": "object",
+        "properties": {
+          "mentorId": {
+            "type": "integer"
+          },
+          "questions": {
+            "type": "string"
+          }
+        }
+      },
+      "review": {
+        "type": "object",
+        "properties": {
+          "score": {
+            "type": "integer"
+          },
+          "remark": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Swagger",
+      "url": "http://swagger.io"
+    }
+  }
+}
