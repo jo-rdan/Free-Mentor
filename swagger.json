@@ -6,7 +6,7 @@
     "description": "Free Mentor",
     "contact": {}
   },
-  "host": "we-mentors.herokuapp.com",
+  "host": "localhost:2000",
   "basePath": "/api/v2",
   "tags": [
     {
@@ -118,7 +118,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -131,7 +131,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -186,7 +186,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -224,7 +224,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -237,7 +237,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -250,7 +250,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -263,7 +263,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -276,7 +276,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -314,7 +314,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -327,7 +327,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -340,7 +340,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -353,7 +353,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
@@ -366,7 +366,7 @@
                   "type": "integer"
                 },
                 "data": {
-                  "$ref": "#/definitions/schemes/user"
+                  "$ref": "#/schemes/user"
                 }
               }
             }
