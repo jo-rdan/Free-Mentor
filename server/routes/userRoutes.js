@@ -4,7 +4,6 @@ import userControl from '../controllers/user_controller';
 import auth from '../middleware/authentication';
 import sessions from '../controllers/sessionController';
 import sessValidate from '../validations/sessionValidations';
-import reviewValidation from '../validations/reviewValidation';
 import userHelper from '../helpers/userServer';
 import sessionHelp from '../helpers/sessionServer';
 import decline from '../helpers/declineReq';
@@ -18,6 +17,4 @@ router.get('/mentors/:mentorId', auth.authUser, userHelper.getOne, userControl.g
 router.post('/sessions', sessValidate,auth.authSession,sessionHelp.sessionHelper, sessions.create);
 router.patch('/sessions/:id/accept', auth.authAcceptRequest, sessionHelp.acceptHelper, sessions.acceptMentorship);
 router.patch('/sessions/:id/reject',auth.authAcceptRequest, decline,sessions.declineMentorship);
-router.post('/sessions/:id/review', reviewValidation, auth.authReview, sessions.reviewMentor);
-
 export default router;

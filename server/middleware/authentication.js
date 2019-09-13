@@ -87,19 +87,21 @@ class Authenticate {
     }
   }
 
-  static authReview(req, res, next) {
+  static async authReview(req, res, next) {
     try {
+      const { id } = req.params.id;
       const tok = req.header('x-token');
-      const findSession = sessions.find((session) => session.sessionId === parseInt(req.params.id));
+      const findSession = await execute(query[1].isSession, [id]);    
       if (tok) {
-        const data = jwt.verify(tok, process.env.secret);
-        if (findSession) {
-          if (data.email === findSession.menteeEmail) {
+        const data = await encryptToken.decryptToken(tok, process.env.secret);
+        if (findSession[0]) {
+          if (data.email === [findSession].menteeEmail) {
             req.payload = data;
+            req.data = [findSession];
             next();
-          } else return res.status(403).send({ status: 403, error: 'You cannot review this session' })
-        } else return res.status(404).send({ status: 404, error: 'Session not found' });
-      } else return res.status(401).send({ status: 401, error: 'Unauthorized user' });
+          } else return responses.onError(res, 403, 'You are not the on who requested this session');
+        } else return responses.onError(res, 404, 'Session not found');
+      } else return responses.onError(res, 401, 'Unauthorized user');
     } catch (error) {
       return res.status(401).send({ status: 401, error: error.message });
     }

@@ -34,6 +34,19 @@ class Session {
       return response.onError(res, 500, error.message);
     }
   }
+
+  static async reviewHelper (req, res, next) {
+    const { score, remark } = req.body;
+    const findSessionData = [[req.data]];
+    const isReview = await execute(query[1].isReview, [findSessionData.sessionId, remark]);
+    const mentee = await execute(query[0].isExist, [req.payload.email]);
+
+    if (findSessionData.status === 'accepted') return response.onError(res, 403, 'The session is not accepted yet');
+    if (isReview) return response.onError(res, 409, 'This session is reviewed already');
+    req.pay = [[mentee]];
+    req.session = findSessionData;
+    next();
+  }
 }
 
 export default Session;
