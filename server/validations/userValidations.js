@@ -9,12 +9,7 @@ class Validations {
       if (!strings.test(firstName)) throw new Error('your first name must not contain special characters, numbers or ehitespaces');
       if (!strings.test(lastName)) throw new Error('your last name must not contain special characters, numbers or whitespaces');
       if (!emails.test(email)) throw new Error('your email must be valid(e.g:jordankayinamura@gmail.com)');
-      if (!passwords.test(password)) throw new Error('your password must be at least 5 characters long');
-      if (!strings.test(address)) throw new Error('your address must not contain special characters, numbers or whitespaces');
-      if (!strings.test(bio)) throw new Error('your biography must not contain special characters, numbers or whitespaces');
-      if (!strings.test(occupation)) throw new Error('your occupation must not contain special characters, numbers or whitespaces');
-      if (!strings.test(expertise)) throw new Error('your expertise must not contain special characters, numbers or whitespaces');
-
+      if (!passwords.test(password)) throw new Error('your password must be at least 5 characters long')
       next();
     } catch (error) {
       res.status(400).send({
@@ -34,6 +29,6 @@ class Validations {
       res.status(400).send({ status: 400, error: error.message });
     }
   };
-} 
+}
 
 export default Validations;
